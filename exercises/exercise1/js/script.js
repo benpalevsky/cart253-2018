@@ -6,6 +6,10 @@
 // One moves linearly down the screen.
 // One moves toward the mouse cursor.
 
+//mouse x velocity
+var mouseVX;
+var lastMouseXPosition;
+
 
 // The image of a clown face
 var clownImage;
@@ -19,7 +23,8 @@ var shrimpImage;
 var shrimpImageX;
 var shrimpImageY;
 
-
+//image of shrimp
+var swimmerImage;
 
 // The transparent image of "felt" that wipes down the canvas
 var feltTextureImage;
@@ -35,6 +40,7 @@ var feltTextureImageY;
 function preload() {
   clownImage = loadImage("assets/images/clown.png");
   shrimpImage = loadImage("assets/images/shrimp.png")
+  swimmerImage = loadImage("assets/images/swimmer.png");
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
 }
 
@@ -69,6 +75,13 @@ function setup() {
 // Moves the clown face toward the current mouse location
 
 function draw() {
+  mouseVX = mouseX - lastMouseXPosition;
+
+
+
+  image(swimmerImage, mouseX, mouseY);
+
+
 
   image(shrimpImage, shrimpImageX, shrimpImageY);
   shrimpImageX++;
@@ -90,4 +103,6 @@ function draw() {
 
   // Display the clown image
   image(clownImage,clownImageX,clownImageY);
+
+  lastMouseXPosition = mouseX;
 }
