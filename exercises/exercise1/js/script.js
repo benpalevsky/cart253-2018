@@ -34,6 +34,7 @@ var feltTextureImageY;
 
 function preload() {
   clownImage = loadImage("assets/images/clown.png");
+  shrimpImage = loadImage("assets/images/shrimp.png")
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
 }
 
@@ -50,6 +51,9 @@ function setup() {
   clownImageX = width/2;
   clownImageY = height/2;
 
+  shrimpImageX = 0;
+  shrimpImageY = height/2;
+
   // Start the felt image perfectly off screen above the canvas
   feltTextureImageX = width/2;
   feltTextureImageY = 0 - feltTextureImage.height/2;
@@ -65,6 +69,9 @@ function setup() {
 // Moves the clown face toward the current mouse location
 
 function draw() {
+
+  image(shrimpImage, shrimpImageX, shrimpImageY);
+  shrimpImageX++;
 
   // Move the felt image down by increasing its y position
   feltTextureImageY += 1;
