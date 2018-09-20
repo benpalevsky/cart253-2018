@@ -17,6 +17,12 @@ var clownImage;
 var clownImageX;
 var clownImageY;
 
+// The image of a clown face
+var clownImage2;
+// The current position of the clown face
+var clownImage2X;
+var clownImage2Y;
+
 //image of shrimp
 var shrimpImage;
 //current position of shrimp
@@ -39,6 +45,7 @@ var feltTextureImageY;
 
 function preload() {
   clownImage = loadImage("assets/images/clown.png");
+  clownImage2 = loadImage("assets/images/clown2.png")
   shrimpImage = loadImage("assets/images/shrimp.png")
   swimmerImage = loadImage("assets/images/swimmer.png");
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
@@ -54,8 +61,8 @@ function setup() {
   createCanvas(640,640);
 
   // Start the clown image at the centre of the canvas
-  clownImageX = width/2;
-  clownImageY = height/2;
+  clownImageX = clownImage2X = width/2;
+  clownImageY = clownImage2Y = height/2;
 
   shrimpImageX = 0;
   shrimpImageY = height/2;
@@ -79,6 +86,9 @@ function draw() {
 
 
 
+
+
+
   image(swimmerImage, mouseX, mouseY);
 
 
@@ -97,12 +107,20 @@ function draw() {
   // Calculate the distance in X and in Y
   var xDistance = mouseX - clownImageX;
   var yDistance = mouseY - clownImageY;
+
   // Add 1/10th of the x and y distance to the clown's current (x,y) location
   clownImageX = clownImageX + xDistance/10;
   clownImageY = clownImageY + yDistance/10;
 
+
+  xDistance = mouseX - clownImage2X;
+  yDistance = mouseY - clownImage2Y;
+
+  clownImage2X = clownImage2X + xDistance/20;
+  clownImage2Y = clownImage2Y + yDistance/20;
+
   // Display the clown image
+  image(clownImage2,clownImage2X,clownImage2Y);
   image(clownImage,clownImageX,clownImageY);
 
-  lastMouseXPosition = mouseX;
 }
