@@ -13,6 +13,14 @@ var clownImage;
 var clownImageX;
 var clownImageY;
 
+//image of shrimp
+var shrimpImage;
+//current position of shrimp
+var shrimpImageX;
+var shrimpImageY;
+
+
+
 // The transparent image of "felt" that wipes down the canvas
 var feltTextureImage;
 // The current position of the transparent image of "felt"
