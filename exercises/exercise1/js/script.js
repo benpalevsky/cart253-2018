@@ -1,15 +1,10 @@
 // Exercise 1 - Moving pictures
-// Pippin Barr
+// Ben Palevsky
 //
 // Starter code for exercise 1.
 // It moves two pictures around on the canvas.
 // One moves linearly down the screen.
 // One moves toward the mouse cursor.
-
-//mouse x velocity
-var mouseVX;
-var lastMouseXPosition;
-
 
 // The image of a clown face
 var clownImage;
@@ -29,7 +24,7 @@ var shrimpImage;
 var shrimpImageX;
 var shrimpImageY;
 
-//image of shrimp
+//image of swimmer
 var swimmerImage;
 
 // The transparent image of "felt" that wipes down the canvas
@@ -41,7 +36,7 @@ var feltTextureImageY;
 
 // preload()
 //
-// Load the two images we're using before the program starts
+// Load the five images we're using before the program starts
 
 function preload() {
   clownImage = loadImage("assets/images/clown.png");
@@ -64,6 +59,7 @@ function setup() {
   clownImageX = clownImage2X = width/2;
   clownImageY = clownImage2Y = height/2;
 
+  //set the initial position of the shrimp
   shrimpImageX = 0;
   shrimpImageY = height/2;
 
@@ -82,28 +78,15 @@ function setup() {
 // Moves the clown face toward the current mouse location
 
 function draw() {
-  mouseVX = mouseX - lastMouseXPosition;
 
-
-
-
-
-
-  image(swimmerImage, mouseX, mouseY);
-
-
-
+  //make sure the shrimp never goes outside of the screen
   shrimpImageX = constrain(shrimpImageX, 0, width);
 
+  //bump him slightly to the left
   shrimpImageX++;
 
   // Move the felt image down by increasing its y position
   feltTextureImageY += 1;
-
-  // Display the felt image
-  image(feltTextureImage,feltTextureImageX,feltTextureImageY);
-
-  // Move the clown by moving it 1/10th of its current distance from the mouse
 
   // Calculate the distance in X and in Y
   var xDistance = mouseX - clownImageX;
@@ -113,18 +96,19 @@ function draw() {
   clownImageX = clownImageX + xDistance/10;
   clownImageY = clownImageY + yDistance/10;
 
-
+  //we'll use the same distance var for the second clown
   xDistance = mouseX - clownImage2X;
   yDistance = mouseY - clownImage2Y;
 
-  clownImage2X = clownImage2X + xDistance/20;
-  clownImage2Y = clownImage2Y + yDistance/20;
+  // Add 1/40th of the x and y distance to the clown's current (x,y) location
+  clownImage2X = clownImage2X + xDistance/40;
+  clownImage2Y = clownImage2Y + yDistance/40;
 
-  // Draw all the images
+  // Draw the all the images
+  image(feltTextureImage,feltTextureImageX,feltTextureImageY);
+  image(swimmerImage, mouseX, mouseY); //swimmer is positioned at the mouse
   image(clownImage2,clownImage2X,clownImage2Y);
-
   image(clownImage,clownImageX,clownImageY);
-
   image(shrimpImage, shrimpImageX, shrimpImageY);
 
 
