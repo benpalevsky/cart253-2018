@@ -93,7 +93,8 @@ function draw() {
 
 
 
-  image(shrimpImage, shrimpImageX, shrimpImageY);
+  shrimpImageX = constrain(shrimpImageX, 0, width);
+
   shrimpImageX++;
 
   // Move the felt image down by increasing its y position
@@ -119,8 +120,12 @@ function draw() {
   clownImage2X = clownImage2X + xDistance/20;
   clownImage2Y = clownImage2Y + yDistance/20;
 
-  // Display the clown image
+  // Draw all the images
   image(clownImage2,clownImage2X,clownImage2Y);
+
   image(clownImage,clownImageX,clownImageY);
+
+  image(shrimpImage, shrimpImageX, shrimpImageY);
+
 
 }
