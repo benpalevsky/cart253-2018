@@ -10,10 +10,25 @@ Starter code for exercise 2.
 // The position and size of our avatar circle
 var avatarX;
 var avatarY;
+
+// Default the avatar's acceleration and velocity to 0 in case no key is pressed this frame
+var avatarAX = 0;
+var avatarAY = 0;
+
+var avatarVX = 0;
+var avatarVY = 0;
+
+//max acceleration and velocity values
+var aMax = 0.3;
+var vMax = 5;
+
+//dampening constant
+var aDamp = 0.9;
+
 var avatarSize = 50;
 
 // The speed and velocity of our avatar circle
-var avatarSpeed = 10;
+var avatarSpeed = .05;
 var avatarVX = 0;
 var avatarVY = 0;
 
@@ -60,35 +75,78 @@ function draw() {
   // A pink background
   background(255,220,220);
 
-  // Default the avatar's velocity to 0 in case no key is pressed this frame
-  avatarVX = 0;
-  avatarVY = 0;
+
+
+
 
   // Check which keys are down and set the avatar's velocity based on its
   // speed appropriately
 
-  // Left and right
-  if (keyIsDown(LEFT_ARROW)) {
-    avatarVX = -avatarSpeed;
-  }
-  else if (keyIsDown(RIGHT_ARROW)) {
-    avatarVX = avatarSpeed;
+  // Left and right, with dampening
+  if (keyIsDown(LEFT_ARROW)) avatarAX += -avatarSpeed;
+
+  else if (!keyIsPressed){
+    avatarAX += aDamp;
+    avatarAX = constrain (avatarAX, -aMax, 0);
   }
 
-  // Up and down (separate if-statements so you can move vertically and
-  // horizontally at the same time)
-  if (keyIsDown(UP_ARROW)) {
-    avatarVY = -avatarSpeed;
-  }
-  else if (keyIsDown(DOWN_ARROW)) {
-    avatarVY = avatarSpeed;
+  if (keyIsDown(RIGHT_ARROW)) avatarAX += avatarSpeed;
+
+  else if (!keyIsPressed){
+    avatarAX -= aDamp;
+    avatarAX = constrain (avatarAX, 0, aMax);
   }
 
 
 
-  // Move the avatar according to its calculated velocity
-  avatarX = avatarX + avatarVX;
-  avatarY = avatarY + avatarVY;
+  // Up and down
+  if (keyIsDown(UP_ARROW)) avatarAY += -avatarSpeed;
+
+  else if (!keyIsPressed){
+    avatarAY += aDamp;
+    avatarAY = constrain (avatarAY, -aMax, 0);
+  }
+
+  if (keyIsDown(DOWN_ARROW)) avatarAY += avatarSpeed;
+
+  else if (!keyIsPressed){
+    avatarAY -= aDamp;
+    avatarAY = constrain (avatarAY, 0, aMax);
+  }
+
+
+  //else if (!keyIsPressed) avatarAY -= aDamp;
+
+
+
+
+  //constrain max acceleration
+  avatarAX = constrain(avatarAX, -aMax, aMax);
+  avatarAY = constrain(avatarAY, -aMax, aMax);
+
+
+
+
+
+
+
+
+
+
+  // Add the players acceleration to their velocity
+  avatarVX += avatarAX;
+  avatarVY += avatarAY;
+
+  //constrain max velocity
+  avatarVX = constrain(avatarVX, -vMax, vMax);
+  avatarVY = constrain(avatarVY, -vMax, vMax);
+
+
+  // Add the velocity to the position
+  avatarX += avatarVX;
+  avatarY += avatarVY;
+
+
 
   // The enemy always moves at enemySpeed (which increases)
   enemyVX = enemySpeed;
@@ -141,6 +199,7 @@ function draw() {
   fill(0);
   // Draw the player as a circle
   ellipse(avatarX,avatarY,avatarSize,avatarSize);
+
 
   // The enemy is red
   fill(255,0,0);
