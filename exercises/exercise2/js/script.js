@@ -84,6 +84,8 @@ function draw() {
     avatarVY = avatarSpeed;
   }
 
+
+
   // Move the avatar according to its calculated velocity
   avatarX = avatarX + avatarVX;
   avatarY = avatarY + avatarVY;
@@ -112,25 +114,19 @@ function draw() {
     dodges = 0;
   }
 
-  // Check if the avatar has gone off the screen (cheating!)
-  if (avatarX < 0 || avatarX > width || avatarY < 0 || avatarY > height) {
-    // If they went off the screen they lose in the same way as above.
-    console.log("YOU LOSE!");
-    enemyX = 0;
-    enemyY = random(0,height);
-    enemySize = 50;
-    enemySpeed = 5;
-    avatarX = width/2;
-    avatarY = height/2;
-    dodges = 0;
-  }
+  // Added worldwrap to the game, so the edges spawn you around the map
+  if (avatarX < 0 - avatarSize) avatarX = width + avatarSize;
+  else if (avatarX > width + avatarSize) avatarX = 0 - avatarSize;
+  else if (avatarY < 0 - avatarSize) avatarY = height + avatarSize;
+  else if (avatarY > height + avatarSize) avatarY = 0 - avatarSize;
+
 
   // Check if the enemy has moved all the way across the screen
   if (enemyX > width) {
     // This means the player dodged so update its dodge statistic
     dodges = dodges + 1;
     // Tell them how many dodges they have made
-    console.log(dodges + " DODGES!");
+
     // Reset the enemy's position to the left at a random height
     enemyX = 0;
     enemyY = random(0,height);
@@ -140,7 +136,6 @@ function draw() {
   }
 
   // Display the current number of successful in the console
-  console.log(dodges);
 
   // The player is black
   fill(0);
@@ -151,5 +146,10 @@ function draw() {
   fill(255,0,0);
   // Draw the enemy as a circle
   ellipse(enemyX,enemyY,enemySize,enemySize);
+
+
+  textSize(32);
+  text("DODGES " + dodges, 10, 30);
+  fill(0, 102, 153);
 
 }
