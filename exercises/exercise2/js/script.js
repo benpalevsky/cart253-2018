@@ -11,6 +11,10 @@ Starter code for exercise 2.
 var avatarX;
 var avatarY;
 
+var img;
+
+var avatarLength = 10;
+
 // Default the avatar's acceleration and velocity to 0 in case no key is pressed this frame
 var avatarAX = 0;
 var avatarAY = 0;
@@ -19,7 +23,7 @@ var avatarVX = 0;
 var avatarVY = 0;
 
 //max acceleration and velocity values
-var aMax = 0.3;
+var aMax = 1;
 var vMax = 5;
 
 //dampening constant
@@ -28,7 +32,7 @@ var aDamp = 0.9;
 var avatarSize = 50;
 
 // The speed and velocity of our avatar circle
-var avatarSpeed = .05;
+var avatarSpeed = .2;
 var avatarVX = 0;
 var avatarVY = 0;
 
@@ -42,8 +46,13 @@ var enemySizeIncrease = 5;
 // The speed and velocity of our enemy circle
 var enemySpeed = 5;
 var enemyVX = 5;
+var enemyVY = 0;
+
 // How much bigger the enemy circle gets with each successful dodge
 var enemySpeedIncrease = 0.5;
+
+var enemyAX = 0;
+var enemyAY = 0;
 
 // How many dodges the player has made
 var dodges = 0;
@@ -54,6 +63,9 @@ var dodges = 0;
 function setup() {
   // Create our playing area
   createCanvas(500,500);
+
+  img = loadImage("assets/images/astronaut.png");  // Load the image
+
 
   // Put the avatar in the centre
   avatarX = width/2;
@@ -73,20 +85,73 @@ function setup() {
 // game over situations.
 function draw() {
   // A pink background
-  background(255,220,220);
+  background(200);
+
+  movePlayer();
 
 
 
+  enemyAY += random(-aMax,aMax);
+  enemyAX += random(-aMax,aMax);
 
 
-  // Check which keys are down and set the avatar's velocity based on its
-  // speed appropriately
+  // The enemy always moves at enemySpeed (which increases)
+  enemyVX +=  enemyAX;
+  enemyVY +=  enemyAY;
 
+  enemyVX = constrain(enemyVX, -aMax, aMax);
+  enemyVY = constrain(enemyVY, -aMax, aMax);
+
+
+  // Update the enemy's position based on its velocity
+  enemyX += enemyVX;
+  enemyY += enemyVY;
+
+  //check collisions
+  if (dist(enemyX,enemyY,avatarX,avatarY) < enemySize/2 + avatarSize/2) {
+
+  }
+
+  // Added worldwrap to the game, so the edges spawn you around the map
+  if (avatarX < 0 - avatarSize) avatarX = width + avatarSize;
+  else if (avatarX > width + avatarSize) avatarX = 0 - avatarSize;
+  else if (avatarY < 0 - avatarSize) avatarY = height + avatarSize;
+  else if (avatarY > height + avatarSize) avatarY = 0 - avatarSize;
+
+  if (enemyX < 0 - enemySize) avatarX = width + avatarSize;
+  else if (enemyX > width + enemySize) enemyX = 0 - avatarSize;
+  else if (enemyY < 0 - enemySize) avatarY = height + avatarSize;
+  else if (enemyY > height + enemySize) enemyY = 0 - avatarSize;
+
+
+  // Display the current number of successful in the console
+
+  // The player is black
+  image(img, avatarX - avatarSize/2, avatarY - avatarSize/2);
+
+  fill(120);
+
+  triangle(avatarSize - avatarX, avatarSize + avatarY, avatarX - 20, 0 + avatarY, avatarX - 20, 10 + avatarY);
+
+  // The enemy is red
+  fill(255,0,0);
+  // Draw the enemy as a circle
+  ellipse(enemyX,enemyY,enemySize,enemySize);
+
+
+  textSize(32);
+  text("DODGES " + dodges, enemyX + 10, enemyY);
+  fill(0, 102, 153);
+
+}
+
+function movePlayer(){
   // Left and right, with dampening
   if (keyIsDown(LEFT_ARROW)) avatarAX += -avatarSpeed;
 
   else if (!keyIsPressed){
     avatarAX += aDamp;
+
     avatarAX = constrain (avatarAX, -aMax, 0);
   }
 
@@ -114,22 +179,9 @@ function draw() {
     avatarAY = constrain (avatarAY, 0, aMax);
   }
 
-
-  //else if (!keyIsPressed) avatarAY -= aDamp;
-
-
-
-
   //constrain max acceleration
   avatarAX = constrain(avatarAX, -aMax, aMax);
   avatarAY = constrain(avatarAY, -aMax, aMax);
-
-
-
-
-
-
-
 
 
 
@@ -145,70 +197,5 @@ function draw() {
   // Add the velocity to the position
   avatarX += avatarVX;
   avatarY += avatarVY;
-
-
-
-  // The enemy always moves at enemySpeed (which increases)
-  enemyVX = enemySpeed;
-  // Update the enemy's position based on its velocity
-  enemyX = enemyX + enemyVX;
-
-  // Check if the enemy and avatar overlap - if they do the player loses
-  // We do this by checking if the distance between the centre of the enemy
-  // and the centre of the avatar is less that their combined radii
-  if (dist(enemyX,enemyY,avatarX,avatarY) < enemySize/2 + avatarSize/2) {
-    // Tell the player they lost
-    console.log("YOU LOSE!");
-    // Reset the enemy's position
-    enemyX = 0;
-    enemyY = random(0,height);
-    // Reset the enemy's size and speed
-    enemySize = 50;
-    enemySpeed = 5;
-    // Reset the avatar's position
-    avatarX = width/2;
-    avatarY = height/2;
-    // Reset the dodge counter
-    dodges = 0;
-  }
-
-  // Added worldwrap to the game, so the edges spawn you around the map
-  if (avatarX < 0 - avatarSize) avatarX = width + avatarSize;
-  else if (avatarX > width + avatarSize) avatarX = 0 - avatarSize;
-  else if (avatarY < 0 - avatarSize) avatarY = height + avatarSize;
-  else if (avatarY > height + avatarSize) avatarY = 0 - avatarSize;
-
-
-  // Check if the enemy has moved all the way across the screen
-  if (enemyX > width) {
-    // This means the player dodged so update its dodge statistic
-    dodges = dodges + 1;
-    // Tell them how many dodges they have made
-
-    // Reset the enemy's position to the left at a random height
-    enemyX = 0;
-    enemyY = random(0,height);
-    // Increase the enemy's speed and size to make the game harder
-    enemySpeed = enemySpeed + enemySpeedIncrease;
-    enemySize = enemySize + enemySizeIncrease;
-  }
-
-  // Display the current number of successful in the console
-
-  // The player is black
-  fill(0);
-  // Draw the player as a circle
-  ellipse(avatarX,avatarY,avatarSize,avatarSize);
-
-
-  // The enemy is red
-  fill(255,0,0);
-  // Draw the enemy as a circle
-  ellipse(enemyX,enemyY,enemySize,enemySize);
-
-
-  textSize(32);
-  text("DODGES " + dodges, 10, 30);
-  fill(0, 102, 153);
 
 }
