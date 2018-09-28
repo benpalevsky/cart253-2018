@@ -143,30 +143,13 @@ var avatarVY = 0;
 // The position and size of the enemy circle
 var enemyX;
 var enemyY;
-var enemySize = 50;
+var enemySize = 120;
 // How much bigger the enemy circle gets with each successful dodge
 var enemySizeIncrease = 5;
 
-// The speed and velocity of our enemy circle
-var enemySpeed = 5;
-var enemyVX = 5;
-var enemyVY = 0;
 
-// How much bigger the enemy circle gets with each successful dodge
-var enemySpeedIncrease = 0.5;
-
-var enemyAX = 0;
-var enemyAY = 0;
-
-// How many dodges the player has made
-var dodges = 0;
-
-var theta = 0;
-
-// setup()
-//
-// Make the canvas, position the avatar and anemy
 function setup() {
+
   // Create our playing area
   createCanvas(500,500);
 
@@ -185,22 +168,22 @@ function setup() {
   noStroke();
 }
 
-// draw()
-//
-// Handle moving the avatar and enemy and checking for dodges and
-// game over situations.
+
 function draw() {
-  // A pink background
+
+  // Draw the background
   background(200);
 
+  //process player controls
   movePlayer();
 
-  moveEnemy();
-
+  //check if the collisions are happening
   checkCollisions();
 
+  //see if we're world wrapping
   checkWorldWrap();
 
+  //draw all the things
   render();
 }
 
@@ -217,14 +200,30 @@ function render(){
   // Draw the enemy as a circle
   ellipse(enemyX,enemyY,enemySize,enemySize);
 
+  //text settings
   textAlign(LEFT);
   textSize(14);
   fill(0, 102, 153);
 
-  text(nonsense[nonsenseIndex], avatarX + 45, avatarY - 45, 180, 90);
+  //render a sentence
+  text(nonsense[nonsenseIndex], avatarX + 45, avatarY - 45, 180, 150);
 
 
-  // The player is black
+
+  //check if the size of the ball is 0 to know whether or not to end the game
+  if (enemySize <= 0){
+    textSize(24);
+    fill(0);
+    background(45, 175, 0);
+    text("YOU KNOW ALL THERE IS TO KNOW :v)", 15, 30);
+  } else {
+    textSize(24);
+    fill(0);
+    text("LEARN ABOUT THIS FASCINATING MAN :)", 15, 30);
+  }
+
+
+  // Draw the player
   image(img, avatarX - avatarSize/2, avatarY - avatarSize/2);
 
 }
@@ -232,30 +231,24 @@ function render(){
 function checkWorldWrap(){
 
 
-  // Added worldwrap to the game, so the edges spawn you around the map
-  if (avatarX < 0 - avatarSize) avatarX = width + avatarSize;
-  else if (avatarX > width + avatarSize) avatarX = 0 - avatarSize;
-  else if (avatarY < 0 - avatarSize) avatarY = height + avatarSize;
-  else if (avatarY > height + avatarSize) avatarY = 0 - avatarSize;
+  // Added worldwrap to the game, so you can go across the sides and come back
+  if (avatarX < 0 - avatarSize){
+    avatarX = width + avatarSize;
+  }
 
-  if (enemyX < 0 - enemySize) enemyX = width + avatarSize;
-  else if (enemyX > width + enemySize) enemyX = 0 - avatarSize;
-  else if (enemyY < 0 - enemySize) enemyY = height + avatarSize;
-  else if (enemyY > height + enemySize) enemyY = 0 - avatarSize;
+  else if (avatarX > width + avatarSize){
+    avatarX = 0 - avatarSize;
+  }
 
+  else if (avatarY < 0 - avatarSize){
+    avatarY = height + avatarSize;
+  }
+
+  else if (avatarY > height + avatarSize){
+    avatarY = 0 - avatarSize;
+  }
 }
 
-function moveEnemy(){
-
-  enemyVX = enemySpeed;
-
-  enemyX += enemyVX;
-  enemyY = 100*sin(theta) * aMax;
-
-  theta += 0.01;
-
-
-}
 
 function checkCollisions(){
 
@@ -263,7 +256,12 @@ function checkCollisions(){
 
   //check collisions
   if (dist(enemyX,enemyY,avatarX,avatarY) < enemySize/2 + avatarSize/2) {
-    nonsenseIndex = Math.floor(random(0, 95));
+    nonsenseIndex = Math.floor(random(0,95));
+    enemyX = random(0, width);
+    enemyY = random(0, height);
+    enemySize -= 10;
+
+
   }
 
 }
@@ -325,6 +323,7 @@ function movePlayer(){
   avatarX += avatarVX;
   avatarY += avatarVY;
 
+  // Reset the acceleration to 0
   avatarAX = 0;
   avatarAY = 0;
 
