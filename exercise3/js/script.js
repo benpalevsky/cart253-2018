@@ -47,6 +47,9 @@ var uiY = 0;
 //
 // Loads the target and decoy images before the program starts
 function preload() {
+
+  var temp;
+
   targetImage = loadImage("assets/images/animals-target.png");
 
   decoyImage1 = loadImage("assets/images/animals-01.png");
@@ -59,6 +62,59 @@ function preload() {
   decoyImage8 = loadImage("assets/images/animals-08.png");
   decoyImage9 = loadImage("assets/images/animals-09.png");
   decoyImage10 = loadImage("assets/images/animals-10.png");
+
+  var r = random(0,1.1);
+
+  if (r < 0.1) {
+    temp = decoyImage1;
+    decoyImage1 = targetImage;
+    targetImage = temp;
+  }
+  else if (r < 0.2) {
+    temp = decoyImage2;
+    decoyImage2 = targetImage;
+    targetImage = temp;
+  }
+  else if (r < 0.3) {
+    temp = decoyImage3;
+    decoyImage3 = targetImage;
+    targetImage = temp;
+  }
+  else if (r < 0.4) {
+    temp = decoyImage4;
+    decoyImage4 = targetImage;
+    targetImage = temp;
+  }
+  else if (r < 0.5) {
+    temp = decoyImage5;
+    decoyImage5 = targetImage;
+    targetImage = temp;
+  }
+  else if (r < 0.6) {
+    temp = decoyImage6;
+    decoyImage6 = targetImage;
+    targetImage = temp;
+  }
+  else if (r < 0.7) {
+    temp = decoyImage7;
+    decoyImage7 = targetImage;
+    targetImage = temp;
+  }
+  else if (r < 0.8) {
+    temp = decoyImage8;
+    decoyImage8 = targetImage;
+    targetImage = temp;
+  }
+  else if (r < 0.9) {
+    temp = decoyImage9;
+    decoyImage9 = targetImage;
+    targetImage = temp;
+  }
+  else if (r < 1.0) {
+    temp = decoyImage10;
+    decoyImage10 = targetImage;
+    targetImage = temp;
+  }
 }
 
 // setup()
@@ -130,7 +186,7 @@ function setup() {
 
 
   size = random (10, 150);
-  
+
   // And draw it (this means it will always be on top)
   image(targetImage,targetX,targetY, size, size);
 
