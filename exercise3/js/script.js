@@ -14,7 +14,7 @@ https://creativenerds.co.uk/freebies/80-free-wildlife-icons-the-best-ever-animal
 var targetX;
 var targetY;
 var targetImage;
-var size = 1;
+var targetSize = 100;
 
 // The ten decoy images
 var decoyImage1;
@@ -218,8 +218,9 @@ function draw() {
 
 
     background('#fae');
-    image(targetImage, targetX, targetY, image.width/size, image.height/size);
+    image(targetImage, targetX, targetY, targetSize, targetSize);
 
+    targetSize += 1;
     targetX+=20;
     targetY-=20;
 
