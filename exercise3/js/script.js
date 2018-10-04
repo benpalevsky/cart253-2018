@@ -14,6 +14,7 @@ https://creativenerds.co.uk/freebies/80-free-wildlife-icons-the-best-ever-animal
 var targetX;
 var targetY;
 var targetImage;
+var size = 1;
 
 // The ten decoy images
 var decoyImage1;
@@ -152,20 +153,34 @@ function draw() {
 
 
   if (gameOver) {
+
+
+
+
+    background('#fae');
+    image(targetImage, targetX, targetY, image.width/size, image.height/size);
+
+    targetX+=20;
+    targetY-=20;
+
+
+    worldWrap();
+
     // Prepare our typography
     textFont("Helvetica");
     textSize(128);
     textAlign(CENTER,CENTER);
     noStroke();
-    fill(random(255));
+    fill(0);
     // Tell them they won!
     text("YOU WINNED!",width/2,height/2);
 
     noFill();
-    stroke(random(255));
+    stroke(0);
     strokeWeight(10);
     ellipse(targetX,targetY,targetImage.width,targetImage.height);
   }
+
 }
 
 // mousePressed()
@@ -179,4 +194,10 @@ function mousePressed() {
       gameOver = true;
     }
   }
+}
+
+function worldWrap(){
+  if (targetX > windowWidth) targetX = 0;
+  if (targetY < 0) targetY = windowHeight;
+
 }
