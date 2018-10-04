@@ -115,6 +115,14 @@ function setup() {
   // Once we've displayed all decoys, we choose a location for the target
   targetX = random(0,width);
   targetY = random(0,height);
+
+  while ((targetX + targetImage.width < uiX + uiWidth) && (targetY + targetImage.height > targetY + uiHeight)) {
+    targetX = random(0,width);
+    targetY = random(0,height);
+  }
+
+
+
   // And draw it (this means it will always be on top)
   image(targetImage,targetX,targetY);
 
