@@ -76,40 +76,43 @@ function setup() {
     // Choose a random location for this decoy
     var x = random(0,width);
     var y = random(0,height);
+
+    var size = random (10, 150);
+
     // Generate a random number we can use for probability
     var r = random();
     // Use the random number to display one of the ten decoy
     // images, each with a 10% chance of being shown
     // We'll talk more about this nice quality of random soon enough
     if (r < 0.1) {
-      image(decoyImage1,x,y);
+      image(decoyImage1,x,y,size,size);
     }
     else if (r < 0.2) {
-      image(decoyImage2,x,y);
+      image(decoyImage2,x,y,size,size);
     }
     else if (r < 0.3) {
-      image(decoyImage3,x,y);
+      image(decoyImage3,x,y,size,size);
     }
     else if (r < 0.4) {
-      image(decoyImage4,x,y);
+      image(decoyImage4,x,y,size,size);
     }
     else if (r < 0.5) {
-      image(decoyImage5,x,y);
+      image(decoyImage5,x,y,size,size);
     }
     else if (r < 0.6) {
-      image(decoyImage6,x,y);
+      image(decoyImage6,x,y,size,size);
     }
     else if (r < 0.7) {
-      image(decoyImage7,x,y);
+      image(decoyImage7,x,y,size,size);
     }
     else if (r < 0.8) {
-      image(decoyImage8,x,y);
+      image(decoyImage8,x,y,size,size);
     }
     else if (r < 0.9) {
-      image(decoyImage9,x,y);
+      image(decoyImage9,x,y,size,size);
     }
     else if (r < 1.0) {
-      image(decoyImage10,x,y);
+      image(decoyImage10,x,y,size,size);
     }
   }
 
@@ -126,9 +129,10 @@ function setup() {
   }
 
 
-
+  size = random (10, 150);
+  
   // And draw it (this means it will always be on top)
-  image(targetImage,targetX,targetY);
+  image(targetImage,targetX,targetY, size, size);
 
   //The colour purple
   fill(140, 0, 100);
@@ -168,12 +172,12 @@ function draw() {
 
     // Prepare our typography
     textFont("Helvetica");
-    textSize(128);
-    textAlign(CENTER,CENTER);
+    textSize(60);
+    textAlign(CENTER);
     noStroke();
     fill(0);
     // Tell them they won!
-    text("YOU WINNED!",width/2,height/2);
+    text("Thank you. You, and you alone have helped me find my good boy.",30,30, 800, 800);
 
     noFill();
     stroke(0);
