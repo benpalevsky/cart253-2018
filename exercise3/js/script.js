@@ -116,8 +116,11 @@ function setup() {
   targetX = random(0,width);
   targetY = random(0,height);
 
-  while ((targetX + targetImage.width < uiX + uiWidth) && (targetY + targetImage.height > targetY + uiHeight)) {
+  while (targetX + targetImage.width > uiX) {
     targetX = random(0,width);
+  }
+
+  while (targetY + targetImage.height < uiY + uiHeight){
     targetY = random(0,height);
   }
 
