@@ -15,7 +15,8 @@ var gameOver = false;
 var xOff = []
 var yOff = []
 
-var numberOfEnemies = 100;
+var numberOfEnemies = 20;
+var growthRate = 20;
 
 // Player position, size, velocity
 var playerX;
@@ -50,6 +51,8 @@ var yOffP;
 var preyX;
 var preyY;
 
+var borderDiameter = 400;
+
 
 
 
@@ -63,6 +66,8 @@ var preyEaten = 0;
 // Sets up the basic elements of the game
 function setup() {
   createCanvas(500,500);
+
+  numberOfEnemies += growthRate;
 
   noStroke();
 
@@ -80,7 +85,7 @@ function setup() {
 function drawBorder(){
 
   fill(255);
-  ellipse(width/2,height/2,400);
+  ellipse(width/2,height/2, borderDiameter);
 
 
 }
@@ -230,15 +235,22 @@ function updateHealth() {
 // Check if the player overlaps the prey and updates health of both
 function checkCollisions() {
 
+  var d1 = dist(playerX, playerY, width/2, height/2);
+
+  if (d1 > borderDiameter/2){
+
+    showGameOver();
+    noLoop();
+
+  }
+
   var i = 0;
 
-
-
   for (i = 0; i < numberOfEnemies; i++) {
-    var d = dist(playerX,playerY,enemyX[i],enemyY[i]);
+    var d2 = dist(playerX,playerY,enemyX[i],enemyY[i]);
 
     // Check if it's an overlap
-    if (d < playerRadius + enemyRadius) {
+    if (d2 < playerRadius + enemyRadius) {
       // Increase the player health
       showGameOver();
       noLoop();
@@ -246,6 +258,14 @@ function checkCollisions() {
       }
 
     }
+
+  var d3 = dist(playerX, playerY, preyX, preyY);
+
+  if (d3 < playerRadius + enemyRadius){
+    setup();
+  }
+
+
 }
 
 // moveEnemies()
@@ -263,7 +283,7 @@ function moveEnemies() {
       yOff[i] += 0.001;
     }
 
-  }
+}
 
 function movePrey(){
 
