@@ -15,10 +15,12 @@ var gameOver = false;
 var xOff = []
 var yOff = []
 
+var numberOfEnemies = 100;
+
 // Player position, size, velocity
 var playerX;
 var playerY;
-var playerRadius = 25;
+var playerRadius = 4;
 var playerVX = 0;
 var playerVY = 0;
 var playerSpeed = 2;
@@ -34,7 +36,7 @@ var sprintRate = 0.1;
 // Prey position, size, velocity
 var preyX = [];
 var preyY = [];
-var preyRadius = 5;
+var preyRadius = 8;
 var preyMaxSpeed = 4;
 // Prey health
 var preyHealth = [];
@@ -65,7 +67,7 @@ function setup() {
 function setupPrey() {
 
   var i;
-  for (i = 0; i < 50; i++) {
+  for (i = 0; i < numberOfEnemies; i++) {
     preyX[i] = random(0,width);
     preyY[i] = random(0,height);
     xOff[i] = random(0,10000);
@@ -228,7 +230,7 @@ function movePrey() {
 
   var i;
 
-  for (i = 0; i < 50; i++) {
+  for (i = 0; i < numberOfEnemies; i++) {
 
       preyX[i] = map(noise(xOff[i]), 0, 1, 0, width);
       preyY[i] = map(noise(yOff[i]), 0, 1, 0, width);
@@ -263,7 +265,7 @@ function movePrey() {
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
 
-  for (i = 0; i < 50; i++) {
+  for (i = 0; i < numberOfEnemies; i++) {
 
     fill(preyFill,preyHealth);
     ellipse(preyX[i],preyY[i],preyRadius*2);
