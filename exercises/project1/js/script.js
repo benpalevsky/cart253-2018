@@ -53,6 +53,7 @@ var preyY;
 
 var borderDiameter = 400;
 
+var bark;
 
 
 
@@ -64,7 +65,18 @@ var preyEaten = 0;
 // setup()
 //
 // Sets up the basic elements of the game
+
+function preload(){
+
+  bark = new Audio('assets/sounds/bark.wav');
+
+}
+
 function setup() {
+
+
+
+
   createCanvas(500,500);
 
   numberOfEnemies += growthRate;
@@ -250,8 +262,8 @@ function checkCollisions() {
     // Check if it's an overlap
     if (d2 < playerRadius + enemyRadius) {
       // Increase the player health
-      showGameOver();
-      noLoop();
+        showGameOver();
+        noLoop();
 
       }
 
@@ -260,6 +272,7 @@ function checkCollisions() {
   var d3 = dist(playerX, playerY, preyX, preyY);
 
   if (d3 < playerRadius + enemyRadius){
+    bark.play();
     setup();
   }
 
