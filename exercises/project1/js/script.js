@@ -94,8 +94,6 @@ function setupEnemies() {
 
   var i;
   for (i = 0; i < numberOfEnemies; i++) {
-    enemyX[i] = random(0,width);
-    enemyY[i] = random(0,height);
     xOff[i] = random(0,10000);
     yOff[i] = random(0,10000);
     enemyHealth[i] = enemyMaxHealth;
