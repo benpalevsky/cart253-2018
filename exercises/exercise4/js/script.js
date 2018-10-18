@@ -268,7 +268,8 @@ function handleBallOffScreen() {
     // If it went off either side, reset it to the centre
     ball.x = width/2;
     ball.y = height/2;
-    paddleLeft.score++;
+    rightPaddle.score++;
+    rightPaddle.h -= 10;
 
     // NOTE that we don't change its velocity here so it just
     // carries on moving with the same velocity after its
@@ -282,7 +283,9 @@ function handleBallOffScreen() {
 
     ball.x = width/2;
     ball.y = height/2;
-    paddleRight.score++;
+    leftPaddle.score++;
+    leftPaddle.h -= 10;
+
 
   }
 
