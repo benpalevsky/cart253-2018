@@ -1,11 +1,11 @@
-function Ball(x, y, speed, size){
+function Ball(){
 
-  this.x = x;
-  this.y = y;
+  this.x = 0;
+  this.y = 0;
   this.vx = 0;
   this.vy = 0;
-  this.size = size;
-  this.speed = speed;
+  this.size = 0.1;
+  this.speed = 1;
 
 
 }
@@ -15,20 +15,20 @@ Ball.prototype.update = function(img){
   this.x += this.vx * this.speed;
   this.y += this.vy * this.speed;
 
-  if(this.x > (width - (img.width * this.size))){
-    this.vx = -this.vx;
+  if(ball.x > (width - (img.width * this.size))){
+    ball.vx = -ball.vx;
   }
 
-  if(this.x < 0){
-    this.vx = -this.vx;
+  if(ball.x < 0){
+    ball.vx = -ball.vx;
   }
 
-  if(this.y > (height - (img.height * this.size))){
-    this.vy = -this.vy;
+  if(ball.y > (height - (img.height * this.size))){
+    ball.vy = -ball.vy;
   }
 
-  if(this.y < 0){
-    this.vy = -this.vy;
+  if(ball.y < 0){
+    ball.vy = -ball.vy;
   }
 
 }

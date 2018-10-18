@@ -8,8 +8,9 @@ author, and this description to match your project!
 
 ******************/
 
-var ball;
+var ball = [];
 var img;
+var i = 0;
 
 // setup()
 //
@@ -17,16 +18,8 @@ var img;
 
 function setup() {
 
-
-  img = loadImage("assets/images/dvd.png");
-  ball = new Ball();
-
   createCanvas(640, 480);
-
-  ball.x = width/2;
-  ball.y = height/2;
-  ball.vx = 1;
-  ball.vy = 1;
+  img = loadImage("assets/images/dvd.png");
 
 }
 
@@ -38,7 +31,24 @@ function setup() {
 function draw() {
 
   background(160);
-  ball.update(img);
-  ball.display(img);
+
+  for (j = 0; j < ball.length;j++){
+
+
+    ball[j].update(img);
+    ball[j].display(img);
+
+  }
+
+
+}
+
+
+function mouseClicked(){
+
+  ball[i] = new Ball(mouseX, mouseY, 1, 0.1);
+  ball[i].vx = 1;
+  ball[i].vy = 1;
+  i++;
 
 }
