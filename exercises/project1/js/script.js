@@ -288,8 +288,8 @@ function moveEnemies() {
 
   for (i = 0; i < numberOfEnemies; i++) {
 
-      enemyX[i] = map(noise(xOff[i]), 0, 1, 0, width);
-      enemyY[i] = map(noise(yOff[i]), 0, 1, 0, width);
+      enemyX[i] = map(noise(xOff[i]), 0, 1, 0, 400);
+      enemyY[i] = map(noise(yOff[i]), 0, 1, 0, 400);
       xOff[i] += 0.001;
       yOff[i] += 0.001;
     }
