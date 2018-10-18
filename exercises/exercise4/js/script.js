@@ -83,6 +83,8 @@ function preload() {
 // Sets initial values for paddle and ball positions
 // and velocities.
 function setup() {
+
+  
   // Create canvas and set drawing modes
   createCanvas(640,480);
   rectMode(CENTER);
@@ -269,9 +271,6 @@ function handleBallOffScreen() {
     // Right gets a point
 
 
-
-    rightPaddle.score++;
-    rightPaddle.h -=10;
     reset(rightPaddle);
 
     // NOTE that we don't change its velocity here so it just
@@ -284,8 +283,6 @@ function handleBallOffScreen() {
   else if (ballLeft > width) {
     // Left gets a point
 
-    leftPaddle.score++;
-    leftPaddle.h -=10;
     reset(leftPaddle);
 
   }
@@ -304,19 +301,26 @@ function handleBallOffScreen() {
 function reset(winningPaddle){
 
   if (winningPaddle.name === "RIGHT"){
+
+    rightPaddle.score++;
+    rightPaddle.h -=10;
+onto
     ball.x = width/2;
     ball.y = height/2;
 
-    ball.vy = random();
+    ball.vy = random() * 5;
     ball.vx = 5;
   }
 
   if (winningPaddle.name === "LEFT"){
 
+    leftPaddle.score++;
+    leftPaddle.h -=10;
+
     ball.x = width/2;
     ball.y = height/2;
 
-    ball.vy = random();
+    ball.vy = random() * 5;
     ball.vx = -5;
   }
 
