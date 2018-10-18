@@ -30,7 +30,11 @@ var paddleInset = 50;
 
 // Basic definition of a left paddle object with its key properties of
 // position, size, velocity, and speed
+
+  //// NEW ////
+
 var leftPaddle = {
+  name: "LEFT",
   x: 0,
   y: 0,
   w: 20,
@@ -40,10 +44,7 @@ var leftPaddle = {
   speed: 5,
   upKeyCode: 87, // The key code for W
   downKeyCode: 83, // The key code for S
-
-  //// NEW ////
   score: 0
-  //// END NEW ////
 }
 
 // RIGHT PADDLE
@@ -51,6 +52,7 @@ var leftPaddle = {
 // Basic definition of a left paddle object with its key properties of
 // position, size, velocity, and speed
 var rightPaddle = {
+  name: "RIGHT",
   x: 0,
   y: 0,
   w: 20,
@@ -60,11 +62,10 @@ var rightPaddle = {
   speed: 5,
   upKeyCode: 38, // The key code for the UP ARROW
   downKeyCode: 40, // The key code for the DOWN ARROW
-
-  //// NEW ////
   score: 0
-  //// END NEW ////
 }
+
+  //// END NEW ////
 
 // A variable to hold the beep sound we will play on bouncing
 var beepSFX;
@@ -266,9 +267,10 @@ function handleBallOffScreen() {
   // Check for ball going off the sides
   if (ballRight < 0){
     // If it went off either side, reset it to the centre
-    ball.x = width/2;
-    ball.y = height/2;
-    paddleLeft.score++;
+
+
+    rightPaddle.score++;
+    reset(rightPaddle);
 
     // NOTE that we don't change its velocity here so it just
     // carries on moving with the same velocity after its
@@ -280,20 +282,47 @@ function handleBallOffScreen() {
   else if (ballLeft > width) {
 
 
-    ball.x = width/2;
-    ball.y = height/2;
-    paddleRight.score++;
+    rightPaddle.score++;
+    reset(rightPaddle);
 
   }
 
 
-  //// END NEW ////
+
 
 }
 
 // displayBall()
 //
 // Draws ball on screen based on its properties
+
+
+
+function reset(winningPaddle){
+
+  if (winningPaddle.name === "RIGHT"){
+    ball.x = width/2;
+    ball.y = height/2;
+
+    ball.vy = random();
+    ball.vx = -5;
+  }
+
+  if (winningPaddle.name === "LEFT"){
+
+    ball.x = width/2;
+    ball.y = height/2;
+
+    ball.vy = random();
+    ball.vx = 5;
+  }
+
+}
+
+
+
+//// END NEW ////
+
 function displayBall() {
   rect(ball.x,ball.y,ball.size,ball.size);
 }
