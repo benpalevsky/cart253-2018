@@ -266,10 +266,12 @@ function handleBallOffScreen() {
 
   // Check for ball going off the sides
   if (ballRight < 0){
-    // If it went off either side, reset it to the centre
+    // Right gets a point
+
 
 
     rightPaddle.score++;
+    rightPaddle.h -=10;
     reset(rightPaddle);
 
     // NOTE that we don't change its velocity here so it just
@@ -280,10 +282,11 @@ function handleBallOffScreen() {
   }
 
   else if (ballLeft > width) {
+    // Left gets a point
 
-
-    rightPaddle.score++;
-    reset(rightPaddle);
+    leftPaddle.score++;
+    leftPaddle.h -=10;
+    reset(leftPaddle);
 
   }
 
@@ -305,7 +308,7 @@ function reset(winningPaddle){
     ball.y = height/2;
 
     ball.vy = random();
-    ball.vx = -5;
+    ball.vx = 5;
   }
 
   if (winningPaddle.name === "LEFT"){
@@ -314,7 +317,7 @@ function reset(winningPaddle){
     ball.y = height/2;
 
     ball.vy = random();
-    ball.vx = 5;
+    ball.vx = -5;
   }
 
 }
