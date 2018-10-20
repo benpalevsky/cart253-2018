@@ -19,7 +19,7 @@ function setup() {
   createCanvas(500, 500);
   background(100);
 
-  w = new Walker(width / 2, height / 2, 10, 10);
+  w = new Walker(width / 2, height / 2, 1, 1);
 
 }
 

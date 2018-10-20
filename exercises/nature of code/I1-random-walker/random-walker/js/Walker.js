@@ -11,13 +11,13 @@ Walker.prototype.update = function() {
 
   var rand = (int(random(0, 4)));
 
-  if (rand == 0) {
+  if (random(1) < 0.1) {
     this.x += (this.speed);
-  } else if (rand == 1) {
+  } else if (random(1) < 0.2) {
     this.x -= (this.speed);
-  } else if (rand == 2) {
+  } else if (random(1) < 0.3) {
     this.y += (this.speed);
-  } else if (rand == 3) {
+  } else {
     this.y -= (this.speed);
   }
 
