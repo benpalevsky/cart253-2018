@@ -66,7 +66,7 @@ var preyEaten = 0;
 //
 // Sets up the basic elements of the game
 
-function preload(){
+function preload() {
 
   bark = new Audio('assets/sounds/bark.wav');
 
@@ -77,7 +77,7 @@ function setup() {
 
 
 
-  createCanvas(500,500);
+  createCanvas(500, 500);
 
   numberOfEnemies += growthRate;
 
@@ -94,10 +94,10 @@ function setup() {
 //
 // Initialises prey's position, velocity, and health
 
-function drawBorder(){
+function drawBorder() {
 
   fill(255);
-  ellipse(width/2,height/2, borderDiameter);
+  ellipse(width / 2, height / 2, borderDiameter);
 
 
 }
@@ -106,19 +106,19 @@ function setupEnemies() {
 
   var i;
   for (i = 0; i < numberOfEnemies; i++) {
-    xOff[i] = random(0,10000);
-    yOff[i] = random(0,10000);
+    xOff[i] = random(0, 10000);
+    yOff[i] = random(0, 10000);
     enemyHealth[i] = enemyMaxHealth;
   }
 
 }
 
-function setupPrey(){
+function setupPrey() {
 
-  preyX = random(0,width);
-  preyY = random(0,width);
-  xOffP = random(0,10000);
-  yOffP = random(0,10000);
+  preyX = random(0, width);
+  preyY = random(0, width);
+  xOffP = random(0, 10000);
+  yOffP = random(0, 10000);
 
 
 }
@@ -127,8 +127,8 @@ function setupPrey(){
 //
 // Initialises player position and health
 function setupPlayer() {
-  playerX = 4*width/5;
-  playerY = height/2;
+  playerX = 4 * width / 5;
+  playerY = height / 2;
   playerHealth = playerMaxHealth;
 }
 
@@ -140,7 +140,7 @@ function setupPlayer() {
 // displays the two agents.
 // When the game is over, shows the game over screen.
 function draw() {
-  background(100,100,200);
+  background(100, 100, 200);
   drawBorder();
 
   if (!gameOver) {
@@ -156,8 +156,7 @@ function draw() {
     drawPrey();
     drawEnemies();
     drawPlayer();
-  }
-  else {
+  } else {
     showGameOver();
   }
 }
@@ -177,23 +176,18 @@ function handleInput() {
   // Check for horizontal movement
   if (keyIsDown(LEFT_ARROW)) {
     playerVX = -playerSpeed;
-  }
-  else if (keyIsDown(RIGHT_ARROW)) {
+  } else if (keyIsDown(RIGHT_ARROW)) {
     playerVX = playerSpeed;
-  }
-  else {
+  } else {
     playerVX = 0;
   }
 
   // Check for vertical movement
   if (keyIsDown(UP_ARROW)) {
     playerVY = -playerSpeed;
-  }
-  else if (keyIsDown(DOWN_ARROW)) {
+  } else if (keyIsDown(DOWN_ARROW)) {
     playerVY = playerSpeed;
-  }
-
-  else {
+  } else {
     playerVY = 0;
 
 
@@ -213,15 +207,13 @@ function movePlayer() {
   // Wrap when player goes off the canvas
   if (playerX < 0) {
     playerX += width;
-  }
-  else if (playerX > width) {
+  } else if (playerX > width) {
     playerX -= width;
   }
 
   if (playerY < 0) {
     playerY += height;
-  }
-  else if (playerY > height) {
+  } else if (playerY > height) {
     playerY -= height;
   }
 }
@@ -245,9 +237,9 @@ function updateHealth() {
 // Check if the player overlaps the prey and updates health of both
 function checkCollisions() {
 
-  var d1 = dist(playerX, playerY, width/2, height/2);
+  var d1 = dist(playerX, playerY, width / 2, height / 2);
 
-  if (d1 > borderDiameter/2){
+  if (d1 > borderDiameter / 2) {
 
     showGameOver();
     noLoop();
@@ -257,21 +249,21 @@ function checkCollisions() {
   var i = 0;
 
   for (i = 0; i < numberOfEnemies; i++) {
-    var d2 = dist(playerX,playerY,enemyX[i],enemyY[i]);
+    var d2 = dist(playerX, playerY, enemyX[i], enemyY[i]);
 
     // Check if it's an overlap
     if (d2 < playerRadius + enemyRadius) {
       // Increase the player health
-        showGameOver();
-        noLoop();
-
-      }
+      showGameOver();
+      noLoop();
 
     }
 
+  }
+
   var d3 = dist(playerX, playerY, preyX, preyY);
 
-  if (d3 < playerRadius + enemyRadius){
+  if (d3 < playerRadius + enemyRadius) {
     bark.play();
     setup();
   }
@@ -288,15 +280,15 @@ function moveEnemies() {
 
   for (i = 0; i < numberOfEnemies; i++) {
 
-      enemyX[i] = map(noise(xOff[i]), 0, 1, 0, 400);
-      enemyY[i] = map(noise(yOff[i]), 0, 1, 0, 400);
-      xOff[i] += 0.001;
-      yOff[i] += 0.001;
-    }
+    enemyX[i] = map(noise(xOff[i]), 0, 1, 0, 400);
+    enemyY[i] = map(noise(yOff[i]), 0, 1, 0, 400);
+    xOff[i] += 0.001;
+    yOff[i] += 0.001;
+  }
 
 }
 
-function movePrey(){
+function movePrey() {
 
   preyX = map(noise(xOffP), 0, 1, 0, width);
   preyY = map(noise(yOffP), 0, 1, 0, width);
@@ -316,16 +308,16 @@ function drawEnemies() {
 
   for (i = 0; i < numberOfEnemies; i++) {
 
-    fill(enemyFill,enemyHealth);
-    ellipse(enemyX[i],enemyY[i],enemyRadius*2);
+    fill(enemyFill, enemyHealth);
+    ellipse(enemyX[i], enemyY[i], enemyRadius * 2);
 
   }
 }
 
-function drawPrey(){
+function drawPrey() {
 
-  fill(0,200,50);
-  ellipse(preyX,preyY,enemyRadius*2);
+  fill(0, 200, 50);
+  ellipse(preyX, preyY, enemyRadius * 2);
 
 }
 
@@ -333,8 +325,8 @@ function drawPrey(){
 //
 // Draw the player as an ellipse with alpha based on health
 function drawPlayer() {
-  fill(playerFill,playerHealth);
-  ellipse(playerX,playerY,playerRadius*2);
+  fill(playerFill, playerHealth);
+  ellipse(playerX, playerY, playerRadius * 2);
 }
 
 // showGameOver()
@@ -342,8 +334,8 @@ function drawPlayer() {
 // Display text about the game being over!
 function showGameOver() {
   textSize(32);
-  textAlign(CENTER,CENTER);
+  textAlign(CENTER, CENTER);
   var gameOverText = "GAME OVER\n";
   gameOverText += "you ded."
-  text(gameOverText,width/2,50);
+  text(gameOverText, width / 2, 50);
 }

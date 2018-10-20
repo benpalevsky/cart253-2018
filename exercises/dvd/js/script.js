@@ -32,7 +32,7 @@ function draw() {
 
   background(160);
 
-  for (j = 0; j < ball.length;j++){
+  for (j = 0; j < ball.length; j++) {
 
 
     ball[j].update(img);
@@ -44,7 +44,7 @@ function draw() {
 }
 
 
-function mouseClicked(){
+function mouseClicked() {
 
   ball[i] = new Ball(mouseX, mouseY, 1, 0.1);
   ball[i].vx = 1;
