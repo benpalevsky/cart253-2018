@@ -1,9 +1,10 @@
-function Walker(x, y, size, speed) {
+function Walker(x, y, size, speed, colour) {
 
   this.x = x;
   this.y = y;
   this.size = size;
   this.speed = speed;
+  this.colour = colour;
 
 }
 
@@ -11,13 +12,13 @@ Walker.prototype.update = function() {
 
   var rand = (int(random(0, 4)));
 
-  if (random(1) < 0.1) {
+  if (rand == 0) {
     this.x += (this.speed);
-  } else if (random(1) < 0.2) {
+  } else if (rand == 1) {
     this.x -= (this.speed);
-  } else if (random(1) < 0.3) {
+  } else if (rand == 2) {
     this.y += (this.speed);
-  } else {
+  } else if (rand == 3) {
     this.y -= (this.speed);
   }
 
@@ -28,7 +29,7 @@ Walker.prototype.update = function() {
 
 Walker.prototype.display = function() {
 
-  fill(0, 0, 255, 15);
+  fill(this.colour);
   ellipse(this.x, this.y, this.size);
 
 }
