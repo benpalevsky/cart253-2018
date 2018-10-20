@@ -28,7 +28,7 @@ Walker.prototype.update = function() {
 
 Walker.prototype.display = function() {
 
-  fill(255);
+  fill(0, 0, 255, 15);
   ellipse(this.x, this.y, this.size);
 
 }

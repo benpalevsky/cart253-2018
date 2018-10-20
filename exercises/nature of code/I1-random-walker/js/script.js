@@ -17,9 +17,10 @@ var w;
 function setup() {
 
   createCanvas(500, 500);
-  background(100);
+  background(200);
+  w = new Walker(width / 2, height / 2, 10, 10);
 
-  w = new Walker(width / 2, height / 2, 1, 1);
+
 
 }
 
@@ -29,6 +30,7 @@ function setup() {
 // Description of draw()
 
 function draw() {
+
   w.update();
   w.display();
 }
