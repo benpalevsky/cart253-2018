@@ -18,7 +18,7 @@ var index = 0;
 function setup() {
 
   createCanvas(500, 500);
-  background(127);
+  background(255);
 
 
 
@@ -31,6 +31,7 @@ function setup() {
 // Description of draw()
 
 function draw() {
+
   noStroke();
 
   var x = randomGaussian(width / 2, width / 8);
