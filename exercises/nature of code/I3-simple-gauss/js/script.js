@@ -32,6 +32,7 @@ function setup() {
 
 function draw() {
 
+
   noStroke();
 
   var x = randomGaussian(width / 2, width / 8);
