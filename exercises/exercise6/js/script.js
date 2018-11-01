@@ -18,7 +18,10 @@ var rightPaddle;
 //
 // Creates the ball and paddles
 function setup() {
+    background(0);
+
     createCanvas(640, 480);
+
     noStroke();
     // Create a ball
     ball = new Ball(width / 2, height / 2, 50, 50, 10, 50);
@@ -27,6 +30,8 @@ function setup() {
     // Create the left paddle with W and S as controls
     // Keycodes 83 and 87 are W and S respectively
     leftPaddle = new Paddle(0, height / 2, 10, 60, 10, 83, 87);
+
+    fill(200, 200, 0);
 }
 
 // draw()
@@ -34,7 +39,8 @@ function setup() {
 // Handles input, updates all the elements, checks for collisions
 // and displays everything.
 function draw() {
-    background(0);
+
+
 
     leftPaddle.handleInput();
     rightPaddle.handleInput();
@@ -51,6 +57,8 @@ function draw() {
     ball.handleCollision(rightPaddle);
 
     ball.display();
+
+
     leftPaddle.display();
     rightPaddle.display();
 }
