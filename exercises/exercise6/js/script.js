@@ -54,5 +54,7 @@ function setup() {
 
     ball.display();
     leftPaddle.display();
-    rightPaddle.display(;
-    }
+
+    //////////////// FIXED
+    rightPaddle.display();
+}
