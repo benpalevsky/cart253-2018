@@ -35,23 +35,25 @@ function setup() {
     leftPaddle = new Paddle(0, height / 2, 10, 60, 10, 83, 87);
 
 
-    // draw()
-    //
-    // Handles input, updates all the elements, checks for collisions
-    // and displays everything.
-    function draw() {
-        background(0);
+    //////////////// FIXED
+}
+// draw()
+//
+// Handles input, updates all the elements, checks for collisions
+// and displays everything.
+function draw() {
+    background(0);
 
-        leftPaddle.handleInput();
-        rightPaddle.handleInput();
+    leftPaddle.handleInput();
+    rightPaddle.handleInput();
 
-        ball.update;
-        leftPaddle.update();
-        rightPaddle.update();
+    ball.update;
+    leftPaddle.update();
+    rightPaddle.update();
 
-        if (ball.isOffTheScreen())
-            reset();
-    }
+    if (ball.isOffTheScreen())
+        reset();
+
 
     ball.handleCollision(leftPaddle);
     ball.handleCollision(rightPaddle);
@@ -61,4 +63,6 @@ function setup() {
 
     //////////////// FIXED
     rightPaddle.display();
+
+    //////////////// FIXED
 }
