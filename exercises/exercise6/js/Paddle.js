@@ -13,8 +13,8 @@
 function Paddle(x, y, w, h, speed, downKey, upKey) {
     this.x = x;
     this.y = y;
-    this.xv = 0;
-    this.yv = 0;
+    this.vy = 0;
+    this.vx = 0;
     this.w = w;
     this.h = h;
     //////////////// FIXED
@@ -47,6 +47,7 @@ Paddle.prototype.update = function() {
 
     //////////////// FIXED
     this.y = constrain(this.y, 0, height - this.h);
+
 }
 
 // display()
