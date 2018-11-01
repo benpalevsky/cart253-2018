@@ -7,13 +7,15 @@
 // Ball constructor
 //
 // Sets the properties with the provided arguments
-function Ball(x, y, vx, vy, size, speed) {
+function Ball(x, y, w, h, size, speed, vx, vy) {
     this.x = x;
     this.y = y;
-    this.vx = vx;
-    this.vy = vy;
+    this.w = w;
+    this.h = h;
     this.size = size;
     this.speed = speed;
+    this.vx = vx;
+    this.vy = vy;
 }
 
 // update()
@@ -26,13 +28,16 @@ function Ball(x, y, vx, vy, size, speed) {
 Ball.prototype.update = function() {
     // Update position with velocity
 
-    this.x += this.vx;
-    this.y += this.vy;
+    //////////////// FIXED
+    this.x += (this.vx * this.speed);
+    this.y += (this.vy * this.speed);
 
     // Constrain y position to be on screen
     this.y = constrain(this.y, 0, height - this.size);
 
     // Check for touching upper or lower edge and reverse velocity if so
+
+    //////////////// FIXED
     if (this.y == 0 || this.y + this.size === height) {
         this.vy = -this.vy;
     }
@@ -57,6 +62,7 @@ Ball.prototype.isOffScreen = function() {
 // Draw the ball as a rectangle on the screen
 Ball.prototype.display = function() {
     //////////////// FIXED
+    fill(255);
     rect(this.x, this.y, this.w, this.h);
 }
 
