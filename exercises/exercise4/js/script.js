@@ -21,12 +21,12 @@ var fgColor = 255;
 // Basic definition of a ball object with its key properties of
 // position, size, velocity, and speed
 var ball = {
-    x: 0,
-    y: 0,
-    size: 20,
-    vx: 0,
-    vy: 0,
-    speed: 5
+  x: 0,
+  y: 0,
+  size: 20,
+  vx: 0,
+  vy: 0,
+  speed: 5
 }
 
 // PADDLES
@@ -42,17 +42,17 @@ var paddleInset = 50;
 //// NEW ////
 
 var leftPaddle = {
-    name: "LEFT",
-    x: 0,
-    y: 0,
-    w: 20,
-    h: 70,
-    vx: 0,
-    vy: 0,
-    speed: 5,
-    upKeyCode: 87, // The key code for W
-    downKeyCode: 83, // The key code for S
-    score: 0
+  name: "LEFT",
+  x: 0,
+  y: 0,
+  w: 20,
+  h: 70,
+  vx: 0,
+  vy: 0,
+  speed: 5,
+  upKeyCode: 87, // The key code for W
+  downKeyCode: 83, // The key code for S
+  score: 0
 }
 
 // RIGHT PADDLE
@@ -60,17 +60,17 @@ var leftPaddle = {
 // Basic definition of a left paddle object with its key properties of
 // position, size, velocity, and speed
 var rightPaddle = {
-    name: "RIGHT",
-    x: 0,
-    y: 0,
-    w: 20,
-    h: 70,
-    vx: 0,
-    vy: 0,
-    speed: 5,
-    upKeyCode: 38, // The key code for the UP ARROW
-    downKeyCode: 40, // The key code for the DOWN ARROW
-    score: 0
+  name: "RIGHT",
+  x: 0,
+  y: 0,
+  w: 20,
+  h: 70,
+  vx: 0,
+  vy: 0,
+  speed: 5,
+  upKeyCode: 38, // The key code for the UP ARROW
+  downKeyCode: 40, // The key code for the DOWN ARROW
+  score: 0
 }
 
 //// END NEW ////
@@ -82,7 +82,7 @@ var beepSFX;
 //
 // Loads the beep audio for the sound of bouncing
 function preload() {
-    beepSFX = new Audio("assets/sounds/beep.wav");
+  beepSFX = new Audio("assets/sounds/beep.wav");
 }
 
 // setup()
@@ -94,21 +94,21 @@ function setup() {
 
 
 
-    // Create canvas and set drawing modes
-    createCanvas(640, 480);
-    background(0);
-    rectMode(CENTER);
-    noStroke();
-    fill(fgColor);
+  // Create canvas and set drawing modes
+  createCanvas(640, 480);
+  background(0);
+  rectMode(CENTER);
+  noStroke();
+  fill(fgColor);
 
-    setupPaddles();
-    setupBall();
+  setupPaddles();
+  setupBall();
 
-    osc = new p5.Oscillator();
-    osc.setType('sine');
-    osc.freq(240);
-    osc.amp(0.5, 0.05);
-    osc.start();
+  osc = new p5.Oscillator();
+  osc.setType('sine');
+  osc.freq(240);
+  osc.amp(0.5, 0.05);
+  osc.start();
 
 }
 
@@ -116,56 +116,56 @@ function setup() {
 //
 // Sets the positions of the two paddles
 function setupPaddles() {
-    // Initialise the left paddle
-    leftPaddle.x = paddleInset;
-    leftPaddle.y = height / 2;
+  // Initialise the left paddle
+  leftPaddle.x = paddleInset;
+  leftPaddle.y = height / 2;
 
-    // Initialise the right paddle
-    rightPaddle.x = width - paddleInset;
-    rightPaddle.y = height / 2;
+  // Initialise the right paddle
+  rightPaddle.x = width - paddleInset;
+  rightPaddle.y = height / 2;
 }
 
 // setupBall()
 //
 // Sets the position and velocity of the ball
 function setupBall() {
-    ball.x = width / 2;
-    ball.y = height / 2;
-    ball.vx = ball.speed;
-    ball.vy = ball.speed;
+  ball.x = width / 2;
+  ball.y = height / 2;
+  ball.vx = ball.speed;
+  ball.vy = ball.speed;
 }
 
 // draw()
 //
 // Calls the appropriate functions to run the game
 function draw() {
-    // Fill the background
-    drawBackground();
-    // Handle input
-    // Notice how we're using the SAME FUNCTION to handle the input
-    // for the two paddles!
-    handleInput(leftPaddle);
-    handleInput(rightPaddle);
+  // Fill the background
+  drawBackground();
+  // Handle input
+  // Notice how we're using the SAME FUNCTION to handle the input
+  // for the two paddles!
+  handleInput(leftPaddle);
+  handleInput(rightPaddle);
 
-    // Update positions of all objects
-    // Notice how we're using the SAME FUNCTION to handle the input
-    // for all three objects!
-    updatePosition(leftPaddle);
-    updatePosition(rightPaddle);
-    updatePosition(ball);
+  // Update positions of all objects
+  // Notice how we're using the SAME FUNCTION to handle the input
+  // for all three objects!
+  updatePosition(leftPaddle);
+  updatePosition(rightPaddle);
+  updatePosition(ball);
 
-    // Handle collisions
-    handleBallWallCollision();
-    handleBallPaddleCollision(leftPaddle);
-    handleBallPaddleCollision(rightPaddle);
+  // Handle collisions
+  handleBallWallCollision();
+  handleBallPaddleCollision(leftPaddle);
+  handleBallPaddleCollision(rightPaddle);
 
-    // Handle the ball going off screen
-    handleBallOffScreen();
+  // Handle the ball going off screen
+  handleBallOffScreen();
 
-    // Display the paddles and ball
-    displayPaddle(leftPaddle);
-    displayPaddle(rightPaddle);
-    displayBall();
+  // Display the paddles and ball
+  displayPaddle(leftPaddle);
+  displayPaddle(rightPaddle);
+  displayBall();
 }
 
 
@@ -176,31 +176,31 @@ function draw() {
 // Takes one parameter: the paddle to handle.
 function handleInput(paddle) {
 
-    // Set the velocity based on whether one or neither of the keys is pressed
+  // Set the velocity based on whether one or neither of the keys is pressed
 
-    // NOTE how we can change properties in the object, like .vy and they will
-    // actually CHANGE THE OBJECT PASSED IN, this allows us to change the velocity
-    // of WHICHEVER paddle is passed as a parameter by changing it's .vy.
+  // NOTE how we can change properties in the object, like .vy and they will
+  // actually CHANGE THE OBJECT PASSED IN, this allows us to change the velocity
+  // of WHICHEVER paddle is passed as a parameter by changing it's .vy.
 
-    // UNLIKE most variables passed into functions, which just pass their VALUE,
-    // when we pass JAVASCRIPT OBJECTS into functions it's the object itself that
-    // gets passed, so we can change its properties etc.
+  // UNLIKE most variables passed into functions, which just pass their VALUE,
+  // when we pass JAVASCRIPT OBJECTS into functions it's the object itself that
+  // gets passed, so we can change its properties etc.
 
-    // Check whether the upKeyCode is being pressed
-    // NOTE how this relies on the paddle passed as a parameter having the
-    // property .upKey
-    if (keyIsDown(paddle.upKeyCode)) {
-        // Move up
-        paddle.vy = -paddle.speed;
-    }
-    // Otherwise if the .downKeyCode is being pressed
-    else if (keyIsDown(paddle.downKeyCode)) {
-        // Move down
-        paddle.vy = paddle.speed;
-    } else {
-        // Otherwise stop moving
-        paddle.vy = 0;
-    }
+  // Check whether the upKeyCode is being pressed
+  // NOTE how this relies on the paddle passed as a parameter having the
+  // property .upKey
+  if (keyIsDown(paddle.upKeyCode)) {
+    // Move up
+    paddle.vy = -paddle.speed;
+  }
+  // Otherwise if the .downKeyCode is being pressed
+  else if (keyIsDown(paddle.downKeyCode)) {
+    // Move down
+    paddle.vy = paddle.speed;
+  } else {
+    // Otherwise stop moving
+    paddle.vy = 0;
+  }
 }
 
 // updatePosition(object)
@@ -211,8 +211,8 @@ function handleInput(paddle) {
 // NOTE how this relies on the object passed in have .x, .y, .vx, and .vy
 // properties, which is true of both the two paddles and the ball
 function updatePosition(object) {
-    object.x += object.vx;
-    object.y += object.vy;
+  object.x += object.vx;
+  object.y += object.vy;
 }
 
 // handleBallWallCollision()
@@ -221,21 +221,21 @@ function updatePosition(object) {
 // and is so reverses its vy
 function handleBallWallCollision() {
 
-    // Calculate edges of ball for clearer if statement below
-    var ballTop = ball.y - ball.size / 2;
-    var ballBottom = ball.y + ball.size / 2;
-    var ballLeft = ball.x - ball.size / 2;
-    var ballRight = ball.x + ball.size / 2;
+  // Calculate edges of ball for clearer if statement below
+  var ballTop = ball.y - ball.size / 2;
+  var ballBottom = ball.y + ball.size / 2;
+  var ballLeft = ball.x - ball.size / 2;
+  var ballRight = ball.x + ball.size / 2;
 
-    // Check for ball colliding with top and bottom
-    if (ballTop < 0 || ballBottom > height) {
-        // If it touched the top or bottom, reverse its vy
-        ball.vy = -ball.vy;
-        // Play our bouncing sound effect by rewinding and then playing
-        beepSFX.currentTime = 0;
-        freq = random(120, 880);
+  // Check for ball colliding with top and bottom
+  if (ballTop < 0 || ballBottom > height) {
+    // If it touched the top or bottom, reverse its vy
+    ball.vy = -ball.vy;
+    // Play our bouncing sound effect by rewinding and then playing
+    beepSFX.currentTime = 0;
+    freq = random(120, 880);
 
-    }
+  }
 }
 
 // handleBallPaddleCollision(paddle)
@@ -244,29 +244,29 @@ function handleBallWallCollision() {
 // reverses the ball's vx so it bounces
 function handleBallPaddleCollision(paddle) {
 
-    // Calculate edges of ball for clearer if statements below
-    var ballTop = ball.y - ball.size / 2;
-    var ballBottom = ball.y + ball.size / 2;
-    var ballLeft = ball.x - ball.size / 2;
-    var ballRight = ball.x + ball.size / 2;
+  // Calculate edges of ball for clearer if statements below
+  var ballTop = ball.y - ball.size / 2;
+  var ballBottom = ball.y + ball.size / 2;
+  var ballLeft = ball.x - ball.size / 2;
+  var ballRight = ball.x + ball.size / 2;
 
-    // Calculate edges of paddle for clearer if statements below
-    var paddleTop = paddle.y - paddle.h / 2;
-    var paddleBottom = paddle.y + paddle.h / 2;
-    var paddleLeft = paddle.x - paddle.w / 2;
-    var paddleRight = paddle.x + paddle.w / 2;
+  // Calculate edges of paddle for clearer if statements below
+  var paddleTop = paddle.y - paddle.h / 2;
+  var paddleBottom = paddle.y + paddle.h / 2;
+  var paddleLeft = paddle.x - paddle.w / 2;
+  var paddleRight = paddle.x + paddle.w / 2;
 
-    // First check it is in the vertical range of the paddle
-    if (ballBottom > paddleTop && ballTop < paddleBottom) {
-        // Then check if it is touching the paddle horizontally
-        if (ballLeft < paddleRight && ballRight > paddleLeft) {
-            // Then the ball is touching the paddle so reverse its vx
-            ball.vx = -ball.vx;
-            // Play our bouncing sound effect by rewinding and then playing
-            beepSFX.currentTime = 0;
-            freq = random(120, 720);
-        }
+  // First check it is in the vertical range of the paddle
+  if (ballBottom > paddleTop && ballTop < paddleBottom) {
+    // Then check if it is touching the paddle horizontally
+    if (ballLeft < paddleRight && ballRight > paddleLeft) {
+      // Then the ball is touching the paddle so reverse its vx
+      ball.vx = -ball.vx;
+      // Play our bouncing sound effect by rewinding and then playing
+      beepSFX.currentTime = 0;
+      freq = random(120, 720);
     }
+  }
 }
 
 // handleBallOffScreen()
@@ -275,34 +275,34 @@ function handleBallPaddleCollision(paddle) {
 // and moves it back to the centre if so
 function handleBallOffScreen() {
 
-    // Calculate edges of ball for clearer if statement below
-    var ballLeft = ball.x - ball.size / 2;
-    var ballRight = ball.x + ball.size / 2;
+  // Calculate edges of ball for clearer if statement below
+  var ballLeft = ball.x - ball.size / 2;
+  var ballRight = ball.x + ball.size / 2;
 
 
-    //// NEW ////
+  //// NEW ////
 
-    // Check for ball going off the sides
-    if (ballRight < 0) {
-        // Right gets a point
-
-
-        reset(rightPaddle);
-        background(0);
+  // Check for ball going off the sides
+  if (ballRight < 0) {
+    // Right gets a point
 
 
-        // NOTE that we don't change its velocity here so it just
-        // carries on moving with the same velocity after its
-        // position is reset.
-        // This is where we would count points etc!
+    reset(rightPaddle);
+    background(0);
 
-    } else if (ballLeft > width) {
-        // Left gets a point
 
-        reset(leftPaddle);
-        background(0);
+    // NOTE that we don't change its velocity here so it just
+    // carries on moving with the same velocity after its
+    // position is reset.
+    // This is where we would count points etc!
 
-    }
+  } else if (ballLeft > width) {
+    // Left gets a point
+
+    reset(leftPaddle);
+    background(0);
+
+  }
 
 
 
@@ -317,33 +317,33 @@ function handleBallOffScreen() {
 
 function reset(winningPaddle) {
 
-    if (winningPaddle.name === "RIGHT") {
+  if (winningPaddle.name === "RIGHT") {
 
-        rightPaddle.score++;
-        rightPaddle.h -= 10;
-        ball.x = width / 2;
-        ball.y = height / 2;
+    rightPaddle.score++;
+    rightPaddle.h -= 10;
+    ball.x = width / 2;
+    ball.y = height / 2;
 
-        ball.vy = random() * 5;
-        ball.vx = 5;
+    ball.vy = random() * 5;
+    ball.vx = 5;
 
-        freq = random(120, 880);
+    freq = random(120, 880);
 
-    }
+  }
 
-    if (winningPaddle.name === "LEFT") {
+  if (winningPaddle.name === "LEFT") {
 
-        leftPaddle.score++;
-        leftPaddle.h -= 10;
+    leftPaddle.score++;
+    leftPaddle.h -= 10;
 
-        ball.x = width / 2;
-        ball.y = height / 2;
+    ball.x = width / 2;
+    ball.y = height / 2;
 
-        ball.vy = random() * 5;
-        ball.vx = -5;
+    ball.vy = random() * 5;
+    ball.vx = -5;
 
-        freq = random(120, 880);
-    }
+    freq = random(120, 880);
+  }
 
 }
 
@@ -352,8 +352,8 @@ function reset(winningPaddle) {
 //// END NEW ////
 
 function displayBall() {
-    rect(ball.x, ball.y, ball.size, ball.size);
-    osc.freq(freq);
+  rect(ball.x, ball.y, ball.size, ball.size);
+  osc.freq(freq);
 }
 
 
@@ -361,9 +361,9 @@ function displayBall() {
 //
 // Draws the specified paddle on screen based on its properties
 function displayPaddle(paddle) {
-    strokeWeight(2);
-    stroke(0);
-    rect(paddle.x, paddle.y, paddle.w, paddle.h);
+  strokeWeight(2);
+  stroke(0);
+  rect(paddle.x, paddle.y, paddle.w, paddle.h);
 }
 
 
@@ -378,22 +378,22 @@ var timer_y = [];
 function drawBackground() {
 
 
-    for (i = 0; i < 50; i++) {
+  for (i = 0; i < 50; i++) {
 
-        // timer_x = random(-10000, 10000);
-        // timer_y = random(-10000, 10000);
-        //
-        // particle_x = map(noise(timer_x), 0, 1, -1, 1) * 100;
-        // particle_y = map(noise(timer_y), 0, 1, -1, 1) * 100;
-        //
-        // rect(particle_x + ball.x, particle_y + ball.y, 10, 10);
+    // timer_x = random(-10000, 10000);
+    // timer_y = random(-10000, 10000);
+    //
+    // particle_x = map(noise(timer_x), 0, 1, -1, 1) * 100;
+    // particle_y = map(noise(timer_y), 0, 1, -1, 1) * 100;
+    //
+    // rect(particle_x + ball.x, particle_y + ball.y, 10, 10);
 
-        fill(random(0, 255), random(0, 255), random(0, 255));
+    fill(random(0, 255), random(0, 255), random(0, 255));
 
-        // timer_x++;
-        // timer_y++;
+    // timer_x++;
+    // timer_y++;
 
-    }
+  }
 
 
 }
