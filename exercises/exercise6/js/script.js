@@ -27,10 +27,10 @@ function setup() {
     // Create a ball
 
     //////////////// FIXED
-    ball = new Ball(width / 2, height / 2, 10, 10, 10, 0.1, 10, 10);
+    ball = new Ball(width / 2, height / 2, 10, 10, 10, 0.5, 10, 10);
     // Create the right paddle with UP and DOWN as controls
     //////////////// FIXED
-    rightPaddle = new Paddle(width - 17.5, height / 2, 10, 60, 10, UP_ARROW, DOWN_ARROW);
+    rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, UP_ARROW, DOWN_ARROW);
     // Create the left paddle with W and S as controls
     // Keycodes 83 and 87 are W and S respectively
 
