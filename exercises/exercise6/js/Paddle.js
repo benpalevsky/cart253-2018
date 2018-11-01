@@ -28,8 +28,12 @@ function Paddle(x, y, w, h, speed, downKey, upKey) {
 // Check if the up or down keys are pressed and update velocity
 // appropriately
 Paddle.prototype.handleInput = function() {
+
+    //////////////// FIXED
     if (keyIsDown(this.upKey)) {
         this.vy = -this.speed;
+
+        //////////////// FIXED
     } else if (keyIsDown(this.downKey)) {
         this.vy = -this.speed;
     }
@@ -40,7 +44,9 @@ Paddle.prototype.handleInput = function() {
 // Constrain the resulting position to be within the canvas
 Paddle.prototype.update = function() {
     this.y += this.vy;
-    this.y = constraint(this.y, 0, hight - this.h);
+
+    //////////////// FIXED
+    this.y = constrain(this.y, 0, height - this.h);
 }
 
 // display()
