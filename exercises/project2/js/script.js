@@ -47,10 +47,8 @@ function draw() {
     if (gameIsActive) {
 
 
-        leftPaddle.handleInput();
-        rightPaddle.handleInput();
-
         currentGame.update();
+        currentGame.handleInput();
 
 
 
