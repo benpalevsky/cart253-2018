@@ -29,7 +29,7 @@ function setup() {
 
     // Create the game
 
-    currentGame = new GameMode("BREAKOUT");
+    currentGame = new GameMode("DAVID");
     currentGame.setup(leftPaddle, rightPaddle, bumpers);
 
 }

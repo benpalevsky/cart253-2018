@@ -8,15 +8,15 @@
 //
 // Sets the properties with the provided arguments
 
-var speedMultiplier = 1;
 
-function Ball(x, y, vx, vy, size, speed) {
+function Ball(x, y, vx, vy, size, speed, multiplier) {
     this.x = x;
     this.y = y;
     this.vx = vx;
     this.vy = vy;
     this.size = size;
     this.speed = speed;
+    this.multiplier = multiplier;
 }
 
 // update()
@@ -75,7 +75,7 @@ Ball.prototype.handleCollision = function(paddle) {
             // this.y -= this.vy;
             // Reverse x velocity to bounce
             this.vx = -this.vx;
-            this.vx *= speedMultiplier;
+            this.vx *= this.multiplier;
 
             if (paddle.name == "BUMPER") {
                 paddle.x = 10000;

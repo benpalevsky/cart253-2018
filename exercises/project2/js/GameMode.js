@@ -6,7 +6,7 @@ GameMode.prototype.setup = function(left, right, bumpers) {
     if (this.type == "REGULAR") {
         leftPaddle = new Paddle(0, height / 2, 10, 60, 10, 83, 87, "LEFT");
         rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
-        ball = new Ball(width / 2, height / 2, 5, 5, 10, 5);
+        ball = new Ball(width / 2, height / 2, 5, 5, 10, 5, 1.1);
     } else
 
 
@@ -14,7 +14,7 @@ GameMode.prototype.setup = function(left, right, bumpers) {
     if (this.type == "BREAKOUT") {
         leftPaddle = new Paddle(0, height / 4, 10, 60, 10, 83, 87, "LEFT");
         rightPaddle = new Paddle(0, height - height / 4, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
-        ball = new Ball(width / 2, height / 2, -5, -5, 10, 5);
+        ball = new Ball(width / 2, height / 2, -5, -5, 10, 5, 1);
 
 
         var i = 0;
@@ -33,18 +33,23 @@ GameMode.prototype.setup = function(left, right, bumpers) {
         }
     } else
 
-    if (this.type == "TIGHT") {
 
 
+    if (this.type == "DAVID") {
+        leftPaddle = new Paddle(0, height / 2, 60, 100, 10, 83, 87, "LEFT");
+        rightPaddle = new Paddle(width - 10, height / 2, 10, 30, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
+        ball = new Ball(width / 2, height / 2, 5, 5, 10, 5, 1.1);
     }
+
+
 
 
 }
 
 GameMode.prototype.handleInput = function() {
 
-    leftPaddle.handleInput();
-    rightPaddle.handleInput();
+    leftPaddle.handleInput(this.type);
+    rightPaddle.handleInput(this.type);
 
 }
 
