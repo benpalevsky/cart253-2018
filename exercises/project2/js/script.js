@@ -2,6 +2,7 @@
 
 // Variable to contain the objects representing our ball and paddles
 var bumpers = [];
+var dvdImg;
 
 var scoreboard;
 var leftPaddle;
@@ -14,11 +15,12 @@ var currentGame;
 //
 // Creates the ball and paddles
 function setup() {
+
     createCanvas(640, 480);
     background(0);
 
     fill(255);
-
+    dvdImg = loadImage("assets/images/dvd.png");
 
 
 
@@ -29,8 +31,8 @@ function setup() {
 
     // Create the game
 
-    currentGame = new GameMode("DAVID");
-    currentGame.setup(leftPaddle, rightPaddle, bumpers);
+    currentGame = new GameMode("DVD");
+    currentGame.setup();
 
 }
 
@@ -49,14 +51,9 @@ function draw() {
 
         currentGame.update();
         currentGame.handleInput();
-
-
-
         ball.handleCollision(leftPaddle);
         ball.handleCollision(rightPaddle);
-
-
-        display();
+        currentGame.display();
 
     } else {
 
@@ -68,12 +65,4 @@ function draw() {
     }
 
 
-}
-
-
-function display() {
-    scoreboard.display();
-    ball.display();
-    leftPaddle.display();
-    rightPaddle.display();
 }

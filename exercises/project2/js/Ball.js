@@ -58,8 +58,13 @@ Ball.prototype.isOffScreen = function() {
 // Draw the ball as a rectangle on the screen
 Ball.prototype.display = function() {
     fill(255);
-    rect(this.x, this.y, this.size, this.size);
+    if (currentGame.type != "DVD") {
+        rect(this.x, this.y, this.size, this.size);
+    } else {
+        image(dvdImg, this.x, this.y, dvdImg.width / 10, dvdImg.height / 10);
+    }
 }
+
 
 // handleCollision(paddle)
 //
