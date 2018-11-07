@@ -56,14 +56,36 @@ Ball.prototype.isOffScreen = function() {
 // display()
 //
 // Draw the ball as a rectangle on the screen
+
+var x, y, z;
+x = 101;
+y = 31;
+z = 431;
+
 Ball.prototype.display = function() {
+
     fill(255);
-    if (currentGame.type != "DVD") {
+
+    if (currentGame.type == "DVD") {
+        // rect(this.x, this.y, this.size / 1.1, this.size / 1.1);
+
+        image(dvdImg, this.x, this.y, dvdImg.width / 20, dvdImg.height / 20);
+
+    } else if (currentGame.type == "MUSHROOM") {
+
+
+
+        fill((map(sin(x), -1, 1, 0, 255)), (map(sin(y), -1, 1, 0, 255)), (map(sin(z), -1, 1, 0, 255)));
         rect(this.x, this.y, this.size, this.size);
+        x += 0.1;
+        y += 0.1;
+        z += 0.1;
+
     } else {
-        image(dvdImg, this.x, this.y, dvdImg.width / 10, dvdImg.height / 10);
+        rect(this.x, this.y, this.size, this.size);
     }
 }
+
 
 
 // handleCollision(paddle)

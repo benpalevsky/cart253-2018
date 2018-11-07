@@ -44,7 +44,19 @@ Paddle.prototype.update = function() {
 // display()
 //
 // Draw the paddle as a rectangle on the screen
+
+
+
+
 Paddle.prototype.display = function() {
-    fill(255);
-    rect(this.x, this.y, this.w, this.h);
+    if (currentGame.type == "DVD") {
+
+        noStroke();
+
+        fill(paddleAlpha, paddleAlpha, paddleAlpha, paddleAlpha);
+        paddleAlpha -= 0.5;
+        rect(this.x, this.y, this.w, this.h);
+
+    } else
+        rect(this.x, this.y, this.w, this.h);
 }

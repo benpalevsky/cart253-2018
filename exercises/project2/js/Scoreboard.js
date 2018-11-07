@@ -1,4 +1,5 @@
 function Scoreboard(p1score, p2score) {
+
     this.p1score = p1score;
     this.p2score = p2score;
 }
