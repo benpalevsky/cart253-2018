@@ -4,6 +4,7 @@
 var bumpers = [];
 var dvdImg;
 var osc;
+var envelope;
 
 var scoreboard;
 var leftPaddle;

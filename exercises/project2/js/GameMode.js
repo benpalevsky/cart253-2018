@@ -9,6 +9,15 @@ GameMode.prototype.setup = function() {
         rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
         ball = new Ball(width / 2, height / 2, 5, 5, 10, 5, 1.1);
         scoreboard = new Scoreboard(0, 0);
+        osc = new p5.Oscillator();
+        envelope = new p5.Env();
+        envelope.setADSR(0.001, 0.5, 0.1, 0.5);
+        envelope.setRange(1, 0);
+
+
+        osc.setType('sine');
+        osc.freq(240);
+        osc.start();
     } else
 
 
@@ -17,7 +26,15 @@ GameMode.prototype.setup = function() {
         leftPaddle = new Paddle(0, height / 4, 10, 60, 10, 83, 87, "LEFT");
         rightPaddle = new Paddle(0, height - height / 4, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
         ball = new Ball(width / 2, height / 2, -5, -5, 10, 5, 1);
+        osc = new p5.Oscillator();
+        envelope = new p5.Env();
+        envelope.setADSR(0.001, 0.5, 0.1, 0.5);
+        envelope.setRange(1, 0);
 
+
+        osc.setType('sine');
+        osc.freq(0);
+        osc.start();
 
 
         var i = 0;
@@ -42,12 +59,30 @@ GameMode.prototype.setup = function() {
         leftPaddle = new Paddle(0, height / 2, 60, 100, 10, 83, 87, "LEFT");
         rightPaddle = new Paddle(width - 10, height / 2, 10, 30, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
         ball = new Ball(width / 2, height / 2, 5, 5, 10, 5, 1.1);
+        osc = new p5.Oscillator();
+        envelope = new p5.Env();
+        envelope.setADSR(0.001, 0.5, 0.1, 0.5);
+        envelope.setRange(1, 0);
+
+
+        osc.setType('sine');
+        osc.freq(240);
+        osc.start();
     } else
 
     if (this.type == "DVD") {
         leftPaddle = new Paddle(0, height / 2, 10, 60, 10, 83, 87, "LEFT");
         rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
         ball = new Ball(width / 4, height / 4, 1, 1, 80, 5, 1.0);
+        osc = new p5.Oscillator();
+        envelope = new p5.envelope();
+        envelope.setADSR(0.001, 0.5, 0.1, 0.5);
+        envelope.setRange(1, 0);
+
+
+        osc.setType('sine');
+        osc.freq(240);
+        osc.start();
     } else
 
 
@@ -56,6 +91,15 @@ GameMode.prototype.setup = function() {
         rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
         ball = new Ball(width / 2, height / 2, 5, 5, 10, 5, 0.9);
         scoreboard = new Scoreboard(0, 0);
+        osc = new p5.Oscillator();
+        envelope = new p5.Envelope();
+        envelope.setADSR(0.001, 0.5, 0.1, 0.5);
+        envelope.setRange(1, 0);
+
+
+        osc.setType('sine');
+        osc.freq(240);
+        osc.start();
 
     } else
 
@@ -63,9 +107,13 @@ GameMode.prototype.setup = function() {
         leftPaddle = new Paddle(0, height / 2, 10, 60, 10, 83, 87, "LEFT");
         rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
         osc = new p5.Oscillator();
+        envelope = new p5.Env();
+        envelope.setADSR(0.001, 0.5, 0.1, 0.5);
+        envelope.setRange(1, 0);
+
+
         osc.setType('sine');
         osc.freq(240);
-        osc.amp(0.5, 0.05);
         osc.start();
     }
 
@@ -153,7 +201,13 @@ GameMode.prototype.update = function() {
 
     if (this.type == "OSCILLATOR") {
 
-
+        if (ball.isOffScreen() > 0) {
+            scoreboard.update(leftPaddle);
+            ball.reset();
+        } else if (ball.isOffScreen() < 0) {
+            scoreboard.update(rightPaddle);
+            ball.reset();
+        }
 
     }
 

@@ -103,6 +103,9 @@ Ball.prototype.handleCollision = function(paddle) {
             // Reverse x velocity to bounce
             this.vx = -this.vx;
             this.vx *= this.multiplier;
+            osc.freq(240);
+            envelope.play(osc, 0, 0.1);
+
 
             if (paddle.name == "BUMPER") {
                 paddle.x = 10000;
