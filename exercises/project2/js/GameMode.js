@@ -106,7 +106,7 @@ GameMode.prototype.setup = function() {
 
     } else
 
-    if (this.type == "OSCILLATOR") {
+    if (this.type == "MITOSIS") {
         leftPaddle = new Paddle(0, height / 2, 10, 60, 10, 83, 87, "LEFT");
         rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
         osc = new p5.Oscillator();
@@ -190,7 +190,7 @@ GameMode.prototype.update = function() {
 
     }
 
-    if (this.type == "OSCILLATOR") {
+    if (this.type == "MITOSIS") {
 
         if (ball.isOffScreen() > 0) {
             scoreboard.update(leftPaddle);

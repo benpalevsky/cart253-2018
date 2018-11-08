@@ -75,7 +75,7 @@ function draw() {
             gameIsActive = true;
             background(0);
         } else if (keyIsDown(70)) {
-            currentGame = new GameMode("OSCILLATOR")
+            currentGame = new GameMode("MITOSIS")
             currentGame.setup();
             gameIsActive = true;
         }
