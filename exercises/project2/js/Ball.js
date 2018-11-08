@@ -26,8 +26,19 @@ function Ball(x, y, vx, vy, size, speed, multiplier) {
 // off left or right side.
 Ball.prototype.update = function() {
     // Update position with velocity
-    this.x += this.vx;
-    this.y += this.vy;
+    this.x += this.vx * this.speed;
+    this.y += this.vy * this.speed;
+
+    if (currentGame.type == "MUSHROOM" && (frameCount % 9 == 0 || frameCount == 1)) {
+        while (lastNote == note) {
+            note = int(random(0, scaleArray.length - 1));
+        }
+        midiValue = scaleArray[note];
+        freqValue = midiToFreq(midiValue);
+        osc.freq(freqValue);
+        envelope.play(osc, 0, 0.1);
+        lastNote = note;
+    }
 
     // Constrain y position to be on screen
     this.y = constrain(this.y, 0, height - this.size);
@@ -35,6 +46,17 @@ Ball.prototype.update = function() {
     // Check for touching upper or lower edge and reverse velocity if so
     if (this.y === 0 || this.y + this.size === height) {
         this.vy = -this.vy;
+        if (currentGame.type != "MUSHROOM") {
+            while (lastNote == note) {
+                note = int(random(0, scaleArray.length - 1));
+            }
+            midiValue = scaleArray[note];
+            freqValue = midiToFreq(midiValue);
+            osc.freq(freqValue);
+            envelope.play(osc, 0, 0.1);
+            lastNote = note;
+        }
+
     }
 }
 
@@ -75,7 +97,7 @@ Ball.prototype.display = function() {
 
 
 
-        fill((map(sin(x), -1, 1, 0, 255)), (map(sin(y), -1, 1, 0, 255)), (map(sin(z), -1, 1, 0, 255)));
+        fill((map(scaleArray[note], scaleArray[0], scaleArray[scaleArray.length - 1], 200, 255)), (map(sin(y), -1, 1, 0, 255)), (map(sin(z), -1, 1, 0, 255)));
         rect(this.x, this.y, this.size, this.size);
         x += 0.1;
         y += 0.1;
@@ -103,8 +125,17 @@ Ball.prototype.handleCollision = function(paddle) {
             // Reverse x velocity to bounce
             this.vx = -this.vx;
             this.vx *= this.multiplier;
-            osc.freq(240);
+
+
+            while (lastNote == note) {
+                note = int(random(0, scaleArray.length - 1));
+            }
+            midiValue = scaleArray[note];
+            freqValue = midiToFreq(midiValue);
+            osc.freq(freqValue);
             envelope.play(osc, 0, 0.1);
+            lastNote = note;
+
 
 
             if (paddle.name == "BUMPER") {

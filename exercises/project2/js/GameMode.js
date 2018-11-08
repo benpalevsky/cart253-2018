@@ -7,8 +7,8 @@ GameMode.prototype.setup = function() {
     if (this.type == "REGULAR") {
         leftPaddle = new Paddle(0, height / 2, 10, 60, 10, 83, 87, "LEFT");
         rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
-        ball = new Ball(width / 2, height / 2, 5, 5, 10, 5, 1.1);
-        scoreboard = new Scoreboard(0, 0);
+        ball = new Ball(width / 2, height / 2, 5, 5, 10, 1, 1.1);
+        scoreboard = new Scoreboard(0, 0, 3);
         osc = new p5.Oscillator();
         envelope = new p5.Env();
         envelope.setADSR(0.001, 0.5, 0.1, 0.5);
@@ -16,7 +16,7 @@ GameMode.prototype.setup = function() {
 
 
         osc.setType('sine');
-        osc.freq(240);
+        osc.freq(0);
         osc.start();
     } else
 
@@ -25,7 +25,7 @@ GameMode.prototype.setup = function() {
     if (this.type == "BREAKOUT") {
         leftPaddle = new Paddle(0, height / 4, 10, 60, 10, 83, 87, "LEFT");
         rightPaddle = new Paddle(0, height - height / 4, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
-        ball = new Ball(width / 2, height / 2, -5, -5, 10, 5, 1);
+        ball = new Ball(width / 8, height / 8, -3, -3, 10, 1, 1);
         osc = new p5.Oscillator();
         envelope = new p5.Env();
         envelope.setADSR(0.001, 0.5, 0.1, 0.5);
@@ -40,7 +40,7 @@ GameMode.prototype.setup = function() {
         var i = 0;
         var j = 0;
 
-        bumperSize = 40;
+        bumperSize = 32;
         numberOfBumpersX = (width * 3 / 4) / bumperSize;
         numberOfBumpersY = height / bumperSize;
 
@@ -48,7 +48,7 @@ GameMode.prototype.setup = function() {
         for (i = 0; i < numberOfBumpersY; i++) {
             bumpers[i] = [];
             for (j = 0; j < numberOfBumpersX; j++) {
-                bumpers[i][j] = new Paddle(width / 4 + (j * bumperSize), (i * bumperSize), bumperSize, bumperSize, 0, 0, 0, "BUMPER");
+                bumpers[i][j] = new Paddle(width / 3 + (j * bumperSize), (i * bumperSize), bumperSize, bumperSize, 0, 0, 0, "BUMPER");
             }
         }
     } else
@@ -66,31 +66,15 @@ GameMode.prototype.setup = function() {
 
 
         osc.setType('sine');
-        osc.freq(240);
+        osc.freq(0);
         osc.start();
     } else
 
     if (this.type == "DVD") {
-        leftPaddle = new Paddle(0, height / 2, 10, 60, 10, 83, 87, "LEFT");
-        rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
-        ball = new Ball(width / 4, height / 4, 1, 1, 80, 5, 1.0);
-        osc = new p5.Oscillator();
-        envelope = new p5.envelope();
-        envelope.setADSR(0.001, 0.5, 0.1, 0.5);
-        envelope.setRange(1, 0);
-
-
-        osc.setType('sine');
-        osc.freq(240);
-        osc.start();
-    } else
-
-
-    if (this.type == "MUSHROOM") {
-        leftPaddle = new Paddle(0, height / 2, 10, 60, 10, 83, 87, "LEFT");
-        rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
-        ball = new Ball(width / 2, height / 2, 5, 5, 10, 5, 0.9);
-        scoreboard = new Scoreboard(0, 0);
+        createCanvas(720, 480);
+        leftPaddle = new Paddle(0, height / 2, 10, height, 10, 83, 87, "LEFT");
+        rightPaddle = new Paddle(width - 10, height / 2, 10, height, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
+        ball = new Ball(width / 4, height / 4, 1, 1, 80, 1, 1);
         osc = new p5.Oscillator();
         envelope = new p5.Envelope();
         envelope.setADSR(0.001, 0.5, 0.1, 0.5);
@@ -98,7 +82,26 @@ GameMode.prototype.setup = function() {
 
 
         osc.setType('sine');
-        osc.freq(240);
+        osc.freq(0);
+        osc.start();
+    } else
+
+
+    if (this.type == "MUSHROOM") {
+        leftPaddle = new Paddle(0, height / 2, 10, 60, 10, 83, 87, "LEFT");
+        rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
+        strokeWeight(1);
+        ball = new Ball(width / 2, height / 2, 5, 5, 20, 5, 0.9);
+        scoreboard = new Scoreboard(0, 0, 20);
+        osc = new p5.Oscillator();
+        envelope = new p5.Envelope();
+        envelope.setADSR(0.001, 0.5, 0.1, 0.5);
+        envelope.setRange(1, 0);
+        scoreboard.display();
+
+
+        osc.setType('sine');
+        osc.freq(0);
         osc.start();
 
     } else
@@ -113,7 +116,7 @@ GameMode.prototype.setup = function() {
 
 
         osc.setType('sine');
-        osc.freq(240);
+        osc.freq(0);
         osc.start();
     }
 
@@ -176,20 +179,8 @@ GameMode.prototype.update = function() {
 
     if (this.type == "MUSHROOM") {
 
-        leftPaddle.speed = noise(randomXOffset) * 12;
-        rightPaddle.speed = noise(randomXOffset) * 12;
 
-        leftPaddle.w = noise(randomXOffset) * 144;
-        rightPaddle.h = noise(randomXOffset) * 144;
-
-        leftPaddle.h = noise(randomXOffset) * 144;
-        rightPaddle.w = noise(randomXOffset) * 144;
-
-        leftPaddle.x += noise(randomYOffset);
-        rightPaddle.x -= noise(randomZOffset);
-
-        ball.size++;
-        ball.speed += noise(randomZOffset);
+        //ball.speed += 0.0001;
 
         randomXOffset += 0.01;
         worldWrap(leftPaddle);
@@ -216,10 +207,10 @@ GameMode.prototype.update = function() {
 
 GameMode.prototype.display = function() {
 
-    background(0);
 
-    if (currentGame.type == "MUSHROOM") {
-        background((map(sin(randomXOffset), -1, 1, 120, 150)), (map(sin(randomYOffset), -1, 1, 120, 230)), (map(sin(randomZOffset), -1, 1, 70, 230)));
+    if (currentGame.type == "MUSHROOM") {} else {
+        background(0);
+
     }
 
     if (scoreboard != undefined)
@@ -235,8 +226,10 @@ GameMode.prototype.display = function() {
 function worldWrap(item) {
     if (item.x > width) {
         item.x = -10;
+        scoreboard.update(leftPaddle);
     } else if (item.x < -11) {
         item.x = width - 1;
+        scoreboard.update(rightPaddle);
     } else if (item.y < 0) {
         item.y = height - 1;
     } else if (item.y > height) {

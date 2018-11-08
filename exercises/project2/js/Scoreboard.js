@@ -1,7 +1,8 @@
-function Scoreboard(p1score, p2score) {
+function Scoreboard(p1score, p2score, limit) {
 
     this.p1score = p1score;
     this.p2score = p2score;
+    this.limit = limit;
 }
 
 
@@ -17,6 +18,11 @@ Scoreboard.prototype.update = function(scoringPaddle) {
         this.p1score++;
     } else if (scoringPaddle.name == "RIGHT") {
         this.p2score++;
+    }
+
+    if (this.p1score >= this.limit || this.p2score >= this.limit) {
+        background(0);
+        gameIsActive = false;
     }
 
 }

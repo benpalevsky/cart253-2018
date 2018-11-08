@@ -3,6 +3,10 @@
 // Variable to contain the objects representing our ball and paddles
 var bumpers = [];
 var dvdImg;
+
+var scaleArray = [40, 42, 65, 67, 68, 70];
+var note = 0;
+var lastNote = 0;
 var osc;
 var envelope;
 
@@ -20,11 +24,13 @@ var paddleAlpha = 255;
 // Creates the ball and paddles
 function setup() {
 
-    createCanvas(640, 480);
+    createCanvas(800, 340);
     background(0);
 
     fill(255);
     dvdImg = loadImage("assets/images/dvd.png");
+
+
 
 
 
@@ -62,11 +68,7 @@ function draw() {
 
         currentGame.setup();
         gameIsActive = true;
-    }
-
-
-
-    if (gameIsActive) {
+    } else if (gameIsActive) {
 
         currentGame.handleInput();
         currentGame.display();
@@ -84,7 +86,7 @@ function draw() {
         fill(255);
         textSize(32);
         textAlign(CENTER);
-        text("A - Regular Pong\nB - Breakout Pong\nC - David and Goliath Pong\nD - DVD Pong\nE - Mushroom Pong\nF - Oscillator Pong", width / 2, height / 2);
+        text("A - Regular Pong\nB - Breakout Pong\nC - David and Goliath Pong\nD - DVD Pong\nE - Synesthesia Pong\nF - Oscillator Pong", width / 2, height / 2);
 
     }
 
