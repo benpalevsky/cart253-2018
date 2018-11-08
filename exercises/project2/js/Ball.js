@@ -29,14 +29,14 @@ Ball.prototype.update = function() {
     this.x += this.vx * this.speed;
     this.y += this.vy * this.speed;
 
-    if (currentGame.type == "MUSHROOM" && (frameCount % 9 == 0 || frameCount == 1)) {
+    if (currentGame.type == "MUSHROOM" && (frameCount % 10 == 0 || frameCount == 1)) {
         while (lastNote == note) {
             note = int(random(0, scaleArray.length - 1));
         }
         midiValue = scaleArray[note];
         freqValue = midiToFreq(midiValue);
         osc.freq(freqValue);
-        envelope.play(osc, 0, 0.1);
+        envelope.play(osc, 0, 10);
         lastNote = note;
     }
 

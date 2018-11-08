@@ -56,9 +56,9 @@ GameMode.prototype.setup = function() {
 
 
     if (this.type == "DAVID") {
-        leftPaddle = new Paddle(0, height / 2, 60, 100, 10, 83, 87, "LEFT");
+        leftPaddle = new Paddle(0, height / 2, 60, 100, 2, 83, 87, "LEFT");
         rightPaddle = new Paddle(width - 10, height / 2, 10, 30, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
-        ball = new Ball(width / 2, height / 2, 5, 5, 10, 5, 1.1);
+        ball = new Ball(width / 2, height / 2, 5, 5, 10, 1, 1.1);
         osc = new p5.Oscillator();
         envelope = new p5.Env();
         envelope.setADSR(0.001, 0.5, 0.1, 0.5);
@@ -91,7 +91,7 @@ GameMode.prototype.setup = function() {
         leftPaddle = new Paddle(0, height / 2, 10, 60, 10, 83, 87, "LEFT");
         rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
         strokeWeight(1);
-        ball = new Ball(width / 2, height / 2, 5, 5, 20, 5, 0.9);
+        ball = new Ball(width / 2, height / 2, 5, 5, 20, 2, 0.9);
         scoreboard = new Scoreboard(0, 0, 20);
         osc = new p5.Oscillator();
         envelope = new p5.Envelope();

@@ -24,6 +24,7 @@ var paddleAlpha = 255;
 // Creates the ball and paddles
 function setup() {
 
+
     createCanvas(800, 340);
     background(0);
 
@@ -86,7 +87,7 @@ function draw() {
         fill(255);
         textSize(32);
         textAlign(CENTER);
-        text("A - Regular Pong\nB - Breakout Pong\nC - David and Goliath Pong\nD - DVD Pong\nE - Synesthesia Pong\nF - Oscillator Pong", width / 2, height / 2);
+        text("A - Regular Pong\nB - Brick Breaker Pong\nC - David and Goliath Pong\nD - DVD Pong\nE - Synesthesia Pong\nF - Meets the Specifications of this Assignment Pong", width / 2, height / 4);
 
     }
 
