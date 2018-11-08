@@ -23,6 +23,7 @@ Scoreboard.prototype.update = function(scoringPaddle) {
     if (this.p1score >= this.limit || this.p2score >= this.limit) {
         background(0);
         gameIsActive = false;
+        gameOver = true;
     }
 
 }

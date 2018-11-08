@@ -91,8 +91,8 @@ GameMode.prototype.setup = function() {
         leftPaddle = new Paddle(0, height / 2, 10, 60, 10, 83, 87, "LEFT");
         rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
         strokeWeight(1);
-        ball = new Ball(width / 2, height / 2, 5, 5, 20, 2, 0.9);
-        scoreboard = new Scoreboard(0, 0, 20);
+        ball = new Ball(width / 2, height / 2, 5, 5, 20, 5, 0.9);
+        scoreboard = new Scoreboard(0, 0, 5);
         osc = new p5.Oscillator();
         envelope = new p5.Envelope();
         envelope.setADSR(0.001, 0.5, 0.1, 0.5);
@@ -220,6 +220,14 @@ GameMode.prototype.display = function() {
     leftPaddle.display();
     rightPaddle.display();
 
+
+}
+
+GameMode.prototype.reset = function() {
+    rightPaddle == null;
+    leftPaddle == null;
+    scoreboard == null;
+    ball == null;
 
 }
 
