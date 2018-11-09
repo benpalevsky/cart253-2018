@@ -61,6 +61,7 @@ GameMode.prototype.setup = function() {
         ball = new Ball(width / 2, height / 2, 5, 5, 10, 1, 1.1);
         osc = new p5.Oscillator();
         envelope = new p5.Env();
+        scoreboard = new Scoreboard(0, 0, 3);
         envelope.setADSR(0.001, 0.5, 0.1, 0.5);
         envelope.setRange(1, 0);
 
@@ -72,6 +73,7 @@ GameMode.prototype.setup = function() {
 
     if (this.type == "DVD") {
         createCanvas(720, 480);
+        scoreboard = null;
         leftPaddle = new Paddle(0, height / 2, 10, height, 10, 83, 87, "LEFT");
         rightPaddle = new Paddle(width - 10, height / 2, 10, height, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
         ball = new Ball(width / 4, height / 4, 1, 1, 80, 1, 1);
@@ -118,6 +120,8 @@ GameMode.prototype.setup = function() {
         osc.setType('sine');
         osc.freq(0);
         osc.start();
+
+
     }
 
 
@@ -149,16 +153,16 @@ GameMode.prototype.update = function() {
     if (this.type == "REGULAR") {
         if (ball.isOffScreen() > 0) {
             scoreboard.update(leftPaddle);
-            ball.reset();
+            ball.reset(leftPaddle);
         } else if (ball.isOffScreen() < 0) {
             scoreboard.update(rightPaddle);
-            ball.reset();
+            ball.reset(rightPaddle);
         }
     }
 
     if (this.type == "BREAKOUT") {
 
-        for (i = 0; i < numberOfBumpersY; i++) {;
+        for (i = 0; i < numberOfBumpersY; i++) {
             for (j = 0; j < numberOfBumpersX; j++) {
                 bumpers[i][j].display();
                 ball.handleCollision(bumpers[i][j]);
@@ -166,6 +170,25 @@ GameMode.prototype.update = function() {
             }
         }
 
+
+        if (ball.isOffScreen() < 0) {
+            ball.reset(rightPaddle);
+            background(0);
+            gameIsActive = false;
+            gameOver = true;
+        }
+
+
+    }
+
+    if (this.type == "DAVID") {
+        if (ball.isOffScreen() > 0) {
+            scoreboard.update(leftPaddle);
+            ball.reset(leftPaddle);
+        } else if (ball.isOffScreen() < 0) {
+            scoreboard.update(rightPaddle);
+            ball.reset(rightPaddle);
+        }
     }
 
     if (this.type == "DVD") {
@@ -194,10 +217,11 @@ GameMode.prototype.update = function() {
 
         if (ball.isOffScreen() > 0) {
             scoreboard.update(leftPaddle);
-            ball.reset();
+            ball.reset(leftPaddle);
         } else if (ball.isOffScreen() < 0) {
             scoreboard.update(rightPaddle);
-            ball.reset();
+            ball.reset(rightPaddle);
+
         }
 
     }

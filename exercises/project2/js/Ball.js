@@ -149,8 +149,16 @@ Ball.prototype.handleCollision = function(paddle) {
 // reset()
 //
 // Set position back to the middle of the screen
-Ball.prototype.reset = function() {
+Ball.prototype.reset = function(winningPaddle) {
     this.x = width / 2;
     this.y = height / 2;
-    this.vx = this.speed;
+
+    if (winningPaddle.name == "RIGHT") {
+        this.vx *= -this.speed;
+        this.vy = random(0.7, 3);
+    }
+    if (winningPaddle.name == "LEFT") {
+        this.vx *= -this.speed;
+        this.vy = random(-0.7, -3);
+    }
 }
