@@ -4,7 +4,7 @@
 var bumpers = [];
 var dvdImg;
 
-var scaleArray = [40, 42, 64, 68, 69, 70];
+var scaleArray = [40, 42, 66, 64, 68, 69, 70];
 var note = 0;
 var lastNote = 0;
 var osc;
@@ -14,6 +14,9 @@ var scoreboard;
 var leftPaddle;
 var rightPaddle;
 var ball;
+var balls = [];
+var splitters = [];
+
 var gameIsActive = false;
 var gameOver = false;
 var currentGame;
@@ -75,7 +78,7 @@ function draw() {
             gameIsActive = true;
             background(0);
         } else if (keyIsDown(70)) {
-            currentGame = new GameMode("MITOSIS")
+            currentGame = new GameMode("MITOSIS");
             currentGame.setup();
             gameIsActive = true;
         }
@@ -88,9 +91,17 @@ function draw() {
         currentGame.update();
 
 
+        if (currentGame.type != "MITOSIS") {
+            ball.handleCollision(leftPaddle);
+            ball.handleCollision(rightPaddle);
+        } else {
+            var i;
+            for (i = 0; i < balls.length; i++) {
+                balls[i].handleCollision(leftPaddle);
+                balls[i].handleCollision(rightPaddle);
+            }
+        }
 
-        ball.handleCollision(leftPaddle);
-        ball.handleCollision(rightPaddle);
 
     } else if (!gameIsActive && gameOver) {
         fill(255);

@@ -108,7 +108,7 @@ Ball.prototype.display = function() {
     }
 }
 
-
+var index = 0;
 
 // handleCollision(paddle)
 //
@@ -142,6 +142,13 @@ Ball.prototype.handleCollision = function(paddle) {
                 paddle.x = 10000;
             }
 
+            if (paddle.name == "SPLITTER") {
+
+                balls[index + 1] = new Ball(balls[index].x, balls[index].y, 5, 5, 10, 1, 1.1);
+                index++;
+                console.log("HI");
+            }
+
         }
     }
 }
@@ -154,11 +161,11 @@ Ball.prototype.reset = function(winningPaddle) {
     this.y = height / 2;
 
     if (winningPaddle.name == "RIGHT") {
-        this.vx *= -this.speed;
+        this.vx *= -this.speed / 3;
         this.vy = random(0.7, 3);
     }
     if (winningPaddle.name == "LEFT") {
-        this.vx *= -this.speed;
+        this.vx *= -this.speed / 3;
         this.vy = random(-0.7, -3);
     }
 }

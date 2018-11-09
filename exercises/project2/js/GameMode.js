@@ -111,16 +111,24 @@ GameMode.prototype.setup = function() {
     if (this.type == "MITOSIS") {
         leftPaddle = new Paddle(0, height / 2, 10, 60, 10, 83, 87, "LEFT");
         rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
+        balls[0] = new Ball(width / 2, height / 2, 5, 5, 10, 1, 1.1);
         osc = new p5.Oscillator();
         envelope = new p5.Env();
         envelope.setADSR(0.001, 0.5, 0.1, 0.5);
         envelope.setRange(1, 0);
+        scoreboard = new Scoreboard(0, 0, 3);
 
 
         osc.setType('sine');
         osc.freq(0);
         osc.start();
 
+        var i;
+        var numberOfSplitters = 50;
+
+        for (i = 0; i < numberOfSplitters; i++) {
+            splitters[i] = new Splitter(random(0, width), random(0, height), 10, 10, "SPLITTER");
+        }
 
     }
 
@@ -146,7 +154,7 @@ GameMode.prototype.handleInput = function() {
 
 GameMode.prototype.update = function() {
 
-    ball.update();
+
     leftPaddle.update();
     rightPaddle.update();
 
@@ -215,19 +223,32 @@ GameMode.prototype.update = function() {
 
     if (this.type == "MITOSIS") {
 
-        if (ball.isOffScreen() > 0) {
-            scoreboard.update(leftPaddle);
-            ball.reset(leftPaddle);
-        } else if (ball.isOffScreen() < 0) {
-            scoreboard.update(rightPaddle);
-            ball.reset(rightPaddle);
+        var i;
+        var j;
+
+        for (i = 0; i < balls.length; i++) {
+            if (balls[i].isOffScreen() > 0) {
+                scoreboard.update(leftPaddle);
+                balls[i].reset(leftPaddle);
+            } else if (balls[i].isOffScreen() < 0) {
+                scoreboard.update(rightPaddle);
+                balls[i].reset(rightPaddle);
+                for (j = 0; j < splitters.length; j++) {
+                    balls[i].handleCollision(splitters[j]);
+                }
+
+
+            }
+
+            balls[i].update();
 
         }
 
+
     }
-
-
 }
+
+
 
 GameMode.prototype.display = function() {
 
@@ -240,7 +261,18 @@ GameMode.prototype.display = function() {
     if (scoreboard != undefined)
         scoreboard.display();
 
-    ball.display();
+
+    if (currentGame.type == "MITOSIS") {
+        for (i = 0; i < balls.length; i++) {
+            balls[i].display();
+        }
+
+        for (i = 0; i < splitters.length; i++) {
+            splitters[i].display();
+        }
+    } else {
+        ball.display();
+    }
     leftPaddle.display();
     rightPaddle.display();
 
