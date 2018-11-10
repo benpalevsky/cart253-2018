@@ -144,9 +144,10 @@ Ball.prototype.handleCollision = function(paddle) {
 
             if (paddle.name == "SPLITTER") {
 
-                balls[index + 1] = new Ball(balls[index].x, balls[index].y, 5, 5, 10, 1, 1.1);
+                balls[index + 1] = new Ball(paddle.x, paddle.y, 0.5, 0.5, 20, 0.1, 1);
+                paddle.x = 10000;
                 index++;
-                console.log("HI");
+
             }
 
         }
@@ -160,12 +161,25 @@ Ball.prototype.reset = function(winningPaddle) {
     this.x = width / 2;
     this.y = height / 2;
 
-    if (winningPaddle.name == "RIGHT") {
-        this.vx *= -this.speed / 3;
-        this.vy = random(0.7, 3);
+    if (currentGame.type != "MITOSIS") {
+        if (winningPaddle.name == "RIGHT") {
+            this.vx *= -this.speed / 3;
+            this.vy = random(0.7, 3);
+        }
+        if (winningPaddle.name == "LEFT") {
+            this.vx *= -this.speed / 3;
+            this.vy = random(-0.7, -3);
+        }
+
+    } else {
+        if (winningPaddle.name == "RIGHT") {
+            this.vx = 0.5;
+            this.vy = 0.5;
+        }
+        if (winningPaddle.name == "LEFT") {
+            this.vx = -0.5;
+            this.vy = -0.5;
+        }
     }
-    if (winningPaddle.name == "LEFT") {
-        this.vx *= -this.speed / 3;
-        this.vy = random(-0.7, -3);
-    }
+
 }

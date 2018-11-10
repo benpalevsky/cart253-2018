@@ -111,12 +111,12 @@ GameMode.prototype.setup = function() {
     if (this.type == "MITOSIS") {
         leftPaddle = new Paddle(0, height / 2, 10, 60, 10, 83, 87, "LEFT");
         rightPaddle = new Paddle(width - 10, height / 2, 10, 60, 10, DOWN_ARROW, UP_ARROW, "RIGHT");
-        balls[0] = new Ball(width / 2, height / 2, 5, 5, 10, 1, 1.1);
+        balls[0] = new Ball(width / 2, height / 2, 0.1, 0.1, 20, 0.5, 1);
         osc = new p5.Oscillator();
         envelope = new p5.Env();
         envelope.setADSR(0.001, 0.5, 0.1, 0.5);
         envelope.setRange(1, 0);
-        scoreboard = new Scoreboard(0, 0, 3);
+        scoreboard = new Scoreboard(0, 0, 50);
 
 
         osc.setType('sine');
@@ -127,7 +127,7 @@ GameMode.prototype.setup = function() {
         var numberOfSplitters = 50;
 
         for (i = 0; i < numberOfSplitters; i++) {
-            splitters[i] = new Splitter(random(0, width), random(0, height), 10, 10, "SPLITTER");
+            splitters[i] = new Splitter(random(0, width), random(0, height), 10, 10, 10, "SPLITTER");
         }
 
     }
@@ -159,6 +159,7 @@ GameMode.prototype.update = function() {
     rightPaddle.update();
 
     if (this.type == "REGULAR") {
+        ball.update();
         if (ball.isOffScreen() > 0) {
             scoreboard.update(leftPaddle);
             ball.reset(leftPaddle);
@@ -169,6 +170,7 @@ GameMode.prototype.update = function() {
     }
 
     if (this.type == "BREAKOUT") {
+        ball.update();
 
         for (i = 0; i < numberOfBumpersY; i++) {
             for (j = 0; j < numberOfBumpersX; j++) {
@@ -190,6 +192,8 @@ GameMode.prototype.update = function() {
     }
 
     if (this.type == "DAVID") {
+        ball.update();
+
         if (ball.isOffScreen() > 0) {
             scoreboard.update(leftPaddle);
             ball.reset(leftPaddle);
@@ -200,6 +204,8 @@ GameMode.prototype.update = function() {
     }
 
     if (this.type == "DVD") {
+        ball.update();
+
         leftPaddle.speed -= 0.004;
         rightPaddle.speed -= 0.004;
         if (leftPaddle.speed < 0 || rightPaddle.speed < 0) {
@@ -212,6 +218,7 @@ GameMode.prototype.update = function() {
 
 
         //ball.speed += 0.0001;
+        ball.update();
 
         randomXOffset += 0.01;
         worldWrap(leftPaddle);
@@ -233,14 +240,14 @@ GameMode.prototype.update = function() {
             } else if (balls[i].isOffScreen() < 0) {
                 scoreboard.update(rightPaddle);
                 balls[i].reset(rightPaddle);
-                for (j = 0; j < splitters.length; j++) {
-                    balls[i].handleCollision(splitters[j]);
-                }
+            }
+            for (j = 0; j < splitters.length; j++) {
+                balls[i].handleCollision(splitters[j]);
+                balls[i].update();
+
 
 
             }
-
-            balls[i].update();
 
         }
 
