@@ -16,20 +16,20 @@ var midiNotes = [52, 54, 64, 66, 52, 54, 64, 66, 52, 54, 64, 66, 52, 54, 64, 66,
 
 
 var slider = []
-var numberOfSliders = 16;
+var numberOfSliders = 32;
 
 
 
 var cutoff;
 var counter = 0;
-var rate = 1;
+var rate = 4;
 
 function setup() {
 
 
 
     createCanvas(1024, 512);
-    background(0);
+    background(255);
 
     fill(255, 0, 0);
     cutoff = width - 128;
@@ -37,7 +37,7 @@ function setup() {
 
     for (i = 0; i < numberOfSliders; i++) {
         //slider[i] = createSlider(sliderMin, sliderMax, map(i, 0, numberOfSliders, 0, 255));
-        slider[i] = new Slider(0, width, 0 + (i * (width / numberOfSliders)), 0.1, midiNotes[i]);
+        slider[i] = new Slider(0, width, 0 + (i * (width / numberOfSliders)), 0.1, random(32, 100));
         slider[i].object.position(0, ((height / numberOfSliders) * i) + (height / 3 / numberOfSliders));
         slider[i].object.style('width', width - 2 + "px");
     }
