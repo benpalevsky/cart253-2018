@@ -12,31 +12,34 @@ author, and this description to match your project!
 //
 // Description of setup
 
-var scale = [40, 42, 66, 64, 68, 69, 70];
+var midiNotes = [40, 42, 66, 64, 68, 69, 70];
+
 
 var slider = []
-var sliderMax = 4096;
-var sliderMin = 0;
 var numberOfSliders = 7;
 
 
 
+var cutoff;
 var counter = 0;
 var rate = 4;
 
 function setup() {
 
 
+
     createCanvas(1024, 512);
     background(0);
 
     fill(255, 0, 0);
-    rect(width - 128, 0, 10, height);
+    cutoff = width - 128;
+    rect(cutoff, 0, 10, height);
 
     for (i = 0; i < numberOfSliders; i++) {
-        slider[i] = createSlider(sliderMin, sliderMax, map(i, 0, numberOfSliders, 0, 255));
-        slider[i].position(0, ((height / numberOfSliders) * i) + (height / 3 / numberOfSliders));
-        slider[i].style('width', width - 2 + "px");
+        //slider[i] = createSlider(sliderMin, sliderMax, map(i, 0, numberOfSliders, 0, 255));
+        slider[i] = new Slider(0, 4096, 0, 1, midiNotes[i]);
+        slider[i].object.position(0, ((height / numberOfSliders) * i) + (height / 3 / numberOfSliders));
+        slider[i].object.style('width', width - 2 + "px");
     }
 
 
@@ -45,17 +48,15 @@ function setup() {
 }
 
 function draw() {
-    // var val = slider.value();
-    // background(val);
 
 
     for (i = 0; i < numberOfSliders; i++) {
-        if (slider[i].value() == sliderMax)
-            slider[i].value(sliderMin + 1)
-        else if (slider[i].value() == sliderMin)
-            slider[i].value(sliderMax - 1)
+        if (slider[i].object.value() == slider[i].minValue)
+            slider[i].object.value(slider[i].minValue + 1)
+        else if (slider[i].object.value() == slider[i].minValue)
+            slider[i].object.value(slider[i].minValue - 1)
         else
-            slider[i].value(slider[i].value() + rate);
+            slider[i].object.value(slider[i].object.value() + rate);
     }
 
 
