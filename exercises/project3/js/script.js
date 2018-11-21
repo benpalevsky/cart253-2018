@@ -13,24 +13,26 @@ author, and this description to match your project!
 // Description of setup
 
 var slider = []
-var sliderMax = 255;
+var sliderMax = 4096;
 var sliderMin = 0;
-var numberOfSliders = 30;
+var numberOfSliders = 12;
 
 
 
 var counter = 0;
-var rate = 5;
+var rate = 1;
 
 function setup() {
-    createCanvas(500, 500);
+
+
+    createCanvas(1024, 512);
+    background(0);
 
     for (i = 0; i < numberOfSliders; i++) {
         slider[i] = createSlider(sliderMin, sliderMax, map(i, 0, numberOfSliders, 0, 255));
-        slider[i].position(10, 15 * i);
-        slider[i].style('width', '500px');
+        slider[i].position(0, (height / numberOfSliders) * i);
+        slider[i].style('width', width - 2 + "px");
     }
-
 
 
 
@@ -48,7 +50,7 @@ function draw() {
         else if (slider[i].value() == sliderMin)
             slider[i].value(sliderMax - 1)
         else
-            slider[i].value(slider[i].value() + sin(rate));
+            slider[i].value(slider[i].value() + rate);
     }
 
 
