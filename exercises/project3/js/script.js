@@ -17,7 +17,7 @@ to proper beats (quarter, eigth, notes etc).
 Also, it could be cool to display a fast fourier transform in the background.
 
 That's what I'm thinking for now! That's a lot of stuff so I'll do my best to get most of it
-done. Ultimately what I'm after is something polished that's fun on both mobile and PC. 
+done. Ultimately what I'm after is something polished that's fun on both mobile and PC.
 
 ******************/
 
@@ -26,7 +26,8 @@ done. Ultimately what I'm after is something polished that's fun on both mobile 
 // Description of setup
 
 var midiNotes = [52, 54, 64, 66, 52, 54, 64, 66, 52, 54, 64, 66, 52, 54, 64, 66, 52, 54, 64, 66];
-
+var drums;
+var a;
 
 var slider = []
 var numberOfSliders = 16;
@@ -43,6 +44,11 @@ var rate = 1.5;
 
 function setup() {
 
+
+    drums = Gibber.Percussion.EDrums('x*ox*xo-');
+    Gibber.Clock.rate = 1;
+    a = Sine();
+    a.frequency.seq([220, 440], [1 / 4, 1 / 8, 1 / 4]);
 
 
     createCanvas(1024, 512);
@@ -78,7 +84,7 @@ function draw() {
 
     for (i = 0; i < numberOfSliders; i++) {
         if (slider[i].object.value() >= cutoff) {
-            slider[i].playNote();
+            //slider[i].playNote();
             slider[i].reset();
         }
     }
