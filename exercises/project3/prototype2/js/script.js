@@ -35,10 +35,17 @@ var offsetX = 0;
 // also better variable names rate --> bpm or tempo
 // maybe vertical lines that show how many beats are passing?
 
+
+
+var steps = 5;
+
+
 function setup() {
 
 
-    createCanvas(displayWidth, displayHeight);
+    //createCanvas(displayWidth, displayHeight);
+    createCanvas(512, 512);
+
     background(100);
 
     noStroke();
@@ -48,21 +55,19 @@ function setup() {
     fill(60, 150, 70);
 
 
-
-
-
-
-
 }
 
 function draw() {
 
     background(100);
     fill(120);
+
+    //draw the horizontal track
     rect(0, height / 2, width, 2);
 
-    for (i = 0; i < 3; i++) {
-        rect((width / 4) * (i + 1), 0, 2, height);
+    //draw the steps
+    for (i = 0; i < steps - 1; i++) {
+        rect((width / (steps)) * (i + 1), 0, 2, height);
     }
 
     fill(60, 150, 70);
@@ -76,8 +81,12 @@ function draw() {
 
 
 
-    if ((frameCount % 6 == 0 || frameCount == 1) && (!dragging)) {
-        rectX += 5;
+    if ((frameCount % 60 == 0 || frameCount == 1) && (!dragging)) {
+        rectX += (width / steps);
+
+        if (rectX > 512) {
+            rectX = 0;
+        }
 
     }
 
