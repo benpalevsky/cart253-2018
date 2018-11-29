@@ -99,7 +99,7 @@ function setup() {
 
     for (i = 0; i < numberOfSliders; i++) {
         //slider[i] = createSlider(sliderMin, sliderMax, map(i, 0, numberOfSliders, 0, 255));
-        slider[i] = createSlider(0, 65, i * 16, 1);
+        slider[i] = createSlider(0, 63, i * 16, 1);
         slider[i].position(0, ((height / numberOfSliders) * i) + (height / 3 / numberOfSliders));
         slider[i].style('width', width - 2 + "px");
 
@@ -121,12 +121,12 @@ function draw() {
     if ((frameCount % rate == 0 || frameCount == 1) && (pauseMusic)) {
 
         for (i = 0; i < numberOfSliders; i++) {
-            if (slider[i].value() > 64) {
+            if (slider[i].value() > 62) {
                 slider[i].value(0);
                 slider[i].instrument.note(notes[i]);
 
             } else
-                slider[i].value(slider[i].value() + 1);
+                slider[i].value(slider[i].value() + rate);
         }
 
     }
