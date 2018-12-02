@@ -45,6 +45,8 @@ var bSynth;
 var cSynth;
 var dSynth;
 
+var a;
+
 //location for each handle
 var ax = 0;
 var bx = 0;
@@ -56,11 +58,14 @@ var bPause = false;
 var cPause = false;
 var dPause = false;
 
+var globalPause = false;
+
 //location for selector
 var sy = 0;
 
-function setup() {
+var rate = 4;
 
+function setup() {
 
     //createCanvas(displayWidth, displayHeight);
     createCanvas(512, 512);
@@ -73,17 +78,12 @@ function setup() {
 
     fill(60, 150, 70);
 
-    aSynth = Synth();
-    aSynth.attack = ms(1);
+    aSynth = new Instrument('c3');
+    bSynth = new Instrument('a3');
+    cSynth = new Instrument('g3');
+    dSynth = new Instrument('c4');
 
-    bSynth = Synth();
-    bSynth.attack = ms(1);
 
-    cSynth = Synth();
-    cSynth.attack = ms(1);
-
-    dSynth = Synth();
-    dSynth.attack = ms(1);
 
 }
 
@@ -110,7 +110,7 @@ function draw() {
     }
 
     //move the handle
-    if ((frameCount % 4 == 0 || frameCount == 1) && (!dragging)) {
+    if ((frameCount % rate == 0 || frameCount == 1) && (!dragging) && (!globalPause)) {
 
         if (!aPause)
             ax += (width / steps);
@@ -129,20 +129,20 @@ function draw() {
         //play note
         if (ax > ((width / steps) * (steps - 1))) {
             ax = 0;
-            aSynth.note('a3');
+            aSynth.oneShot();
         }
         if (bx > ((width / steps) * (steps - 1))) {
             bx = 0;
-            bSynth.note('c3');
+            bSynth.oneShot();
         }
         if (cx > ((width / steps) * (steps - 1))) {
             cx = 0;
-            cSynth.note('g3');
+            cSynth.oneShot();
 
         }
         if (dx > ((width / steps) * (steps - 1))) {
             dx = 0;
-            dSynth.note('c4');
+            dSynth.oneShot();
 
         }
 
@@ -180,44 +180,81 @@ function draw() {
 function keyPressed() {
     if (keyCode === DOWN_ARROW) {
         sy = constrain(++sy, 0, 3);
+        aPause = false;
+        bPause = false;
+        cPause = false;
+        dPause = false;
     } else if (keyCode === UP_ARROW) {
         sy = constrain(--sy, 0, 3);
+        aPause = false;
+        bPause = false;
+        cPause = false;
+        dPause = false;
     } else if (keyCode === RIGHT_ARROW) {
         switch (sy) {
             case 0:
+                aPause = true;
                 ax += (width / steps);
                 break;
             case 1:
+                bPause = true;
                 bx += (width / steps);
                 break;
             case 2:
+                cPause = true;
                 cx += (width / steps);
                 break;
             case 3:
+                dPause = true;
                 dx += (width / steps);
                 break;
         }
     } else if (keyCode === LEFT_ARROW) {
         switch (sy) {
             case 0:
+                aPause = true;
                 ax -= (width / steps);
                 break;
             case 1:
+                bPause = true;
                 bx -= (width / steps);
                 break;
             case 2:
+                cPause = true;
                 cx -= (width / steps);
                 break;
             case 3:
+                dPause = true;
                 dx -= (width / steps);
                 break;
 
         }
     } else if (keyCode === 32) {
-        aPause = !aPause;
-        bPause = !bPause;
-        cPause = !cPause;
-        dPause = !dPause;
+
+        globalPause = !globalPause
+
+        if (globalPause === true) {
+            aPause = true;
+            bPause = true;
+            cPause = true;
+            dPause = true;
+        } else {
+            aPause = false;
+            bPause = false;
+            cPause = false;
+            dPause = false;
+        }
+
+    } else if (keyCode === 87) {
+        rate = constrain(++rate, 1, 20);
+
+
+
+    } else if (keyCode === 69) {
+
+        rate = constrain(--rate, 1, 20);
+
+
     }
 
 }
