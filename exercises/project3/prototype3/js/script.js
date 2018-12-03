@@ -21,31 +21,54 @@ done. Ultimately what I'm after is something polished that's fun on both mobile 
 
 ******************/
 
+// a = Kick()
+// a.play(55)
+// b = Snare().play()
+// c = Hat().play()
+// d = Clave().play()
+// e = Cowbell().play()
+// f = Conga().play()
+
+// d.note( 'c4')
+// d.note( 'eb4' )
+
 var slider;
 var mySequencer1;
 var mySequencer2;
 var myScale1 = ['c3', 'd3', 'e3', 'a3'];
-var myScale2 = ['e5', 'd5', 'a5', 'b5'];
+var myScale2 = ['Kick', 'Snare', 'Hat', 'Clave', 'Cowbell', 'Conga'];
+
+var gui;
 
 var rate = 10;
+
+var a;
 
 
 function setup() {
 
     //createCanvas(displayWidth, displayHeight);
     createCanvas(512, 512);
-    mySequencer1 = new Sequencer(width / 2, 0, 4, 512 / 2, 512 / 2, 16, myScale1);
-    mySequencer2 = new Sequencer(width / 2, height / 2, 4, 512 / 2, 512 / 2, 16, myScale2);
+
+
+    mySequencer1 = new Sequencer(width / 2, 0, 4, 512 / 2, 512 / 2, 16, myScale1, "SYNTH");
+    mySequencer2 = new Sequencer(width / 2, height / 2, 4, 512 / 2, 512 / 2, 16, myScale2, "DRUM");
 
     slider = createSlider(1, 20, 1);
     slider.position(25, 25);
     slider.style('width', '80px');
+
+    sliderRange(0, 90, 1);
+    gui = createGui('p5.gui');
+    gui.addGlobals('mySequencer1');
+
 
 
 
 }
 
 function draw() {
+
 
     background(100);
 

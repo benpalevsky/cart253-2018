@@ -4,7 +4,7 @@
 //steps is how many "notches there are"
 
 
-function Sequencer(x, y, numberOfSliders, seqCanvasHeight, seqCanvasWidth, steps, scale) {
+function Sequencer(x, y, numberOfSliders, seqCanvasHeight, seqCanvasWidth, steps, scale, type) {
 
     this.x = x;
     this.y = y;
@@ -17,7 +17,7 @@ function Sequencer(x, y, numberOfSliders, seqCanvasHeight, seqCanvasWidth, steps
     this.sliders = [];
 
     for (var i = 0; i < this.numberOfSliders; i++) {
-        this.sliders[i] = new Slider(scale[i]);
+        this.sliders[i] = new Slider(scale[i], type);
         this.sliders[i].handle_x = (this.seqCanvasWidth / this.steps) * (i * 2);
         this.sliders[i].handle_y = i * (this.seqCanvasHeight / this.numberOfSliders);
     }

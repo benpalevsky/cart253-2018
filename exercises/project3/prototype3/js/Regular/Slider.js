@@ -2,9 +2,10 @@
 //row number is 0, 1, 2, 3 etc (based on how many sliders in the sequencer)
 
 
-function Slider(note) {
+function Slider(note, type) {
 
-    this.instrument = new Instrument(note);
+    this.instrument = new Instrument(note, type);
+    this.type = type;
     this.handle_x = 0;
     this.handle_y = 0;
 
@@ -12,7 +13,7 @@ function Slider(note) {
 }
 
 
-Slider.prototype.playNote = function() {
+Slider.prototype.playNote = function(type) {
 
     this.instrument.oneShot();
 
