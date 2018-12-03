@@ -5,8 +5,6 @@ function Instrument(note) {
     this.synth.attack = ms(1);
 
 
-
-
 }
 
 Instrument.prototype.oneShot = function() {
