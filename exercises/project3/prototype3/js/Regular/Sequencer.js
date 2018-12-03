@@ -4,8 +4,10 @@
 //steps is how many "notches there are"
 
 
-function Sequencer(numberOfSliders, seqCanvasHeight, seqCanvasWidth, steps, scale) {
+function Sequencer(x, y, numberOfSliders, seqCanvasHeight, seqCanvasWidth, steps, scale) {
 
+    this.x = x;
+    this.y = y;
     this.numberOfSliders = numberOfSliders;
     this.seqCanvasHeight = seqCanvasHeight;
     this.seqCanvasWidth = seqCanvasWidth;
@@ -14,9 +16,9 @@ function Sequencer(numberOfSliders, seqCanvasHeight, seqCanvasWidth, steps, scal
 
     this.sliders = [];
 
-    for (var i = 0; i < numberOfSliders; i++) {
+    for (var i = 0; i < this.numberOfSliders; i++) {
         this.sliders[i] = new Slider(scale[i]);
-        this.sliders[i].handle_x = 0;
+        this.sliders[i].handle_x = (this.seqCanvasWidth / this.steps) * (i * 2);
         this.sliders[i].handle_y = i * (this.seqCanvasHeight / this.numberOfSliders);
     }
 
@@ -25,7 +27,7 @@ function Sequencer(numberOfSliders, seqCanvasHeight, seqCanvasWidth, steps, scal
 Sequencer.prototype.moveSliders = function() {
 
     //move sliders and worldwrap
-    for (var i = 0; i < numberOfSliders; i++) {
+    for (var i = 0; i < this.numberOfSliders; i++) {
 
         //check if we're out of the screen
         if (this.sliders[i].handle_x > ((this.seqCanvasWidth / this.steps) * (this.steps - 1))) {
@@ -42,12 +44,13 @@ Sequencer.prototype.moveSliders = function() {
 
 Sequencer.prototype.displaySliders = function() {
 
-    for (var i = 0; i < numberOfSliders; i++) {
-        rect(this.sliders[i].handle_x, sliders[i].handle_y, this.seqCanvasWidth / this.steps, this.seqCanvasHeight / numberOfSliders);
+    for (var i = 0; i < this.numberOfSliders; i++) {
+        rect(this.sliders[i].handle_x + this.x, this.sliders[i].handle_y + this.y, this.seqCanvasWidth / this.steps, this.seqCanvasHeight / this.numberOfSliders);
     }
 
 
 }
+
 
 Sequencer.prototype.reset = function() {
 
