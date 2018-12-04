@@ -13,7 +13,7 @@ function Slider(note, type) {
 }
 
 
-Slider.prototype.playNote = function(type) {
+Slider.prototype.playNote = function() {
 
     this.instrument.oneShot();
 
