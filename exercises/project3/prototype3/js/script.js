@@ -38,9 +38,12 @@ var mySequencer2;
 var myScale1 = ['c3', 'd3', 'e3', 'a3'];
 var myScale2 = ['Kick', 'Snare', 'Hat', 'Clave', 'Cowbell', 'Conga'];
 
+var sliderNote;
+
 var gui;
 
-var rate = 10;
+var myRate = 10;
+var testString = "Hello World!"
 
 var a;
 
@@ -52,15 +55,22 @@ function setup() {
 
 
     mySequencer1 = new Sequencer(width / 2, 0, 4, 512 / 2, 512 / 2, 16, myScale1, "SYNTH");
+    sliderNote = mySequencer1.sliders[1].instrument.note;
     mySequencer2 = new Sequencer(width / 2, height / 2, 4, 512 / 2, 512 / 2, 16, myScale2, "DRUM");
 
     slider = createSlider(1, 20, 1);
     slider.position(25, 25);
     slider.style('width', '80px');
 
-    sliderRange(0, 90, 1);
+    sliderRange(0, 20, 1);
     gui = createGui('p5.gui');
-    gui.addGlobals('mySequencer1');
+    sliderRange(0, 20, 1);
+    gui.addGlobals('myRate');
+
+    gui.addGlobals('sliderNote');
+
+    mySequencer1.sliders[1].instrument.note = sliderNote;
+
 
 
 
@@ -72,12 +82,10 @@ function draw() {
 
     background(100);
 
-    rate = 21 - slider.value();
-
     mySequencer1.displaySliders();
     mySequencer2.displaySliders();
 
-    if (frameCount % rate == 0 || frameCount == 1) {
+    if (frameCount % myRate == 0 || frameCount == 1) {
 
         mySequencer1.moveSliders();
         mySequencer2.moveSliders();
