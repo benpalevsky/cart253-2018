@@ -61,8 +61,8 @@ function preload() {
 
     foo = new p5.Speech(); // speech synthesis object
 
-    for (var i = 1; i <= 33; i++) {
-        images[i - 1] = loadImage('assets/images/emoji/' + i + ' .png');
+    for (var i = 0; i <= 34; i++) {
+        images[i] = loadImage('assets/images/emoji/' + i + ' .png');
     }
 
 
@@ -119,10 +119,15 @@ function draw() {
             background(255, 190, 239);
             fill(236, 145, 216);
             noStroke();
-            rect((width / 2) - (textWidth(wordSounds[current_index].word)) / 2, (height / 2) - 32, textWidth(wordSounds[current_index].word), 40);
+
+            if (wordsTypedCorrectly === 13) {
+                rect((width / 2) - (textWidth(wordSounds[current_index].word)) / 2, (height / 2) - 32, textWidth(wordSounds[current_index].word), 80);
+            } else {
+                rect((width / 2) - (textWidth(wordSounds[current_index].word)) / 2, (height / 2) - 32, textWidth(wordSounds[current_index].word), 40);
+            }
             fill(255);
             text(wordSounds[current_index].word, 0, (height / 2) - textSize(), width, height);
-            image(wordSounds[current_index].image, (width / 2) - wordSounds[current_index].image.width / 2, height / 4);
+            text(timePassed, width / 2, height / 8);
 
         } else if (wordsTypedCorrectly >= 15 && wordsTypedCorrectly < 30) {
             background(255, 172, 129);
@@ -131,8 +136,8 @@ function draw() {
             rect((width / 2) - (textWidth(wordSounds[current_index].word)) / 2, (height / 2) - 32, textWidth(wordSounds[current_index].word), 40);
             fill(255);
             text(wordSounds[current_index].word, 0, (height / 2) - textSize(), width, height);
-            image(wordSounds[current_index].image, (width / 2) - wordSounds[current_index].image.width / 2, height / 4);
             input.style('background-color', '#FF928B');
+            text(timePassed, width / 2, height / 8);
 
 
         } else if (wordsTypedCorrectly >= 28 && wordsTypedCorrectly < 33) {
@@ -143,21 +148,24 @@ function draw() {
             rect((width / 2) - (textWidth(wordSounds[current_index].word)) / 2, (height / 2) - 32, textWidth(wordSounds[current_index].word), 40);
             fill(255);
             text(wordSounds[current_index].word, 0, (height / 2) - textSize(), width, height);
-            image(wordSounds[current_index].image, (width / 2) - wordSounds[current_index].image.width / 2, height / 4);
             input.style('background-color', '#710000');
+            text(timePassed, width / 2, height / 8);
 
 
         } else if (wordsTypedCorrectly === 33) {
 
             background(255, 190, 239);
-            fill(236, 145, 216);
             noStroke();
-            fill(255);
             input.style('background-color', '#EC91D8');
 
+            fill(236, 145, 216);
+            rect((width / 2) - (textWidth('Your speed is ' + Math.floor(((charactersTyped / timeAtEnd) * 60)) + ' characters a minute.')) / 2, (height / 8) - 32, textWidth('Your speed is ' + Math.floor(((charactersTyped / timeAtEnd) * 60)) + ' characters a minute.'), 80);
+            rect((width / 2) - (textWidth('Thats pretty fast!')) / 2, (height / 2) - 32, textWidth('Thats pretty fast!'), 40);
 
-            text('Your speed is ' + ((charactersTyped / timeAtEnd) * 60) + ' characters a minute.', 0, (height / 4) - textSize(), width, height);
+            fill(255);
+            text('Your speed is ' + Math.floor(((charactersTyped / timeAtEnd) * 60)) + ' characters a minute.', 0, (height / 8) - textSize(), width, height);
             text('Thats pretty fast!', 0, (height / 2) - textSize(), width, height);
+
 
 
 
@@ -165,15 +173,34 @@ function draw() {
 
         timePassed = Math.floor((millis() - 1000) / 1000) - timeAtStart;
 
-        text(timePassed, width / 2, height / 8);
+
 
     } else {
 
         textFont(latoFont);
-        text('Typing Speed Test', 0, (height / 4) - textSize(), width, height);
+
+        background(255, 190, 239);
+        noStroke();
+        fill(236, 145, 216);
+        rect((width / 2) - (textWidth('Typing Speed Test')) / 2, (height / 6) - 32, textWidth('Typing Speed Test'), 40);
+        fill(236, 145, 216);
+        rect((width / 2) - (textWidth('Type "Start" to Begin')) / 2, (height / 2) - 32, textWidth('Type "Start" to Begin'), 40);
+        timeAtStart = Math.floor((millis() - 1000) / 1000);
+        fill(255);
+
+        text('Typing Speed Test', 0, (height / 6) - textSize(), width, height);
         text('Type "Start" to Begin', 0, (height / 2) - textSize(), width, height);
 
-        timeAtStart = Math.floor((millis() - 1000) / 1000);
+    }
+
+    if (!gameHasStarted && wordsTypedCorrectly) {
+        image(wordSounds[0].image, (width / 2) - wordSounds[current_index].image.width / 2, height / 4);
+
+    } else if (wordsTypedCorrectly < 33) {
+        image(wordSounds[current_index + 1].image, (width / 2) - wordSounds[current_index + 1].image.width / 2, height / 4);
+
+    } else {
+        image(wordSounds[0].image, (width / 2) - wordSounds[0].image.width / 2, height / 4);
 
     }
 
@@ -183,7 +210,7 @@ function draw() {
 function keyPressed() {
     if (keyCode === 13) {
         guess = input.value();
-        if (guess === wordSounds[current_index].word) {
+        if (guess === wordSounds[current_index].word && wordsTypedCorrectly < 33) {
 
             ++wordsTypedCorrectly;
             charactersTyped += wordSounds[current_index].word.length;
@@ -203,6 +230,9 @@ function keyPressed() {
             gameHasStarted = true;
             input.value("");
 
+        } else if (wordsTypedCorrectly >= 33 || !gameHasStarted) {
+            foo.speak(input.value());
+            input.value("");
         } else {
             incorrectSound.play();
         }
