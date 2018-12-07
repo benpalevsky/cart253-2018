@@ -9,6 +9,7 @@ var gibberishSounds = [];
 var gibberishText = [];
 
 var wordSounds = [];
+var startImage;
 
 var correctSounds = [];
 var incorrectSound;
@@ -60,6 +61,9 @@ function preload() {
     gibberishText = loadStrings('assets/strings/words.txt');
 
     foo = new p5.Speech(); // speech synthesis object
+
+
+    startImage = loadImage('assets/images/emoji/0 .png')
 
     for (var i = 0; i <= 34; i++) {
         images[i] = loadImage('assets/images/emoji/' + i + ' .png');
@@ -129,7 +133,7 @@ function draw() {
             text(wordSounds[current_index].word, 0, (height / 2) - textSize(), width, height);
             text(timePassed, width / 2, height / 8);
 
-        } else if (wordsTypedCorrectly >= 15 && wordsTypedCorrectly < 30) {
+        } else if (wordsTypedCorrectly >= 15 && wordsTypedCorrectly < 29) {
             background(255, 172, 129);
             fill(255, 146, 139);
             noStroke();
@@ -140,15 +144,15 @@ function draw() {
             text(timePassed, width / 2, height / 8);
 
 
-        } else if (wordsTypedCorrectly >= 28 && wordsTypedCorrectly < 33) {
+        } else if (wordsTypedCorrectly >= 29 && wordsTypedCorrectly < 33) {
 
-            background(243, 117, 43);
-            fill(113, 0, 9);
+            background(167, 153, 183);
+            fill(152, 136, 165);
             noStroke();
             rect((width / 2) - (textWidth(wordSounds[current_index].word)) / 2, (height / 2) - 32, textWidth(wordSounds[current_index].word), 40);
             fill(255);
             text(wordSounds[current_index].word, 0, (height / 2) - textSize(), width, height);
-            input.style('background-color', '#710000');
+            input.style('background-color', '#9888A5');
             text(timePassed, width / 2, height / 8);
 
 
@@ -190,17 +194,14 @@ function draw() {
 
         text('Typing Speed Test', 0, (height / 6) - textSize(), width, height);
         text('Type "Start" to Begin', 0, (height / 2) - textSize(), width, height);
-
+        textSize(22);
     }
 
-    if (!gameHasStarted && wordsTypedCorrectly) {
-        image(wordSounds[0].image, (width / 2) - wordSounds[current_index].image.width / 2, height / 4);
-
-    } else if (wordsTypedCorrectly < 33) {
+    if (wordsTypedCorrectly < 33 && gameHasStarted) {
         image(wordSounds[current_index + 1].image, (width / 2) - wordSounds[current_index + 1].image.width / 2, height / 4);
 
     } else {
-        image(wordSounds[0].image, (width / 2) - wordSounds[0].image.width / 2, height / 4);
+        image(startImage, (width / 2) - wordSounds[0].image.width / 2, height / 4);
 
     }
 
